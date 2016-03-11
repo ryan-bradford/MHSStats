@@ -10,14 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var screenWidth = Int(UIScreen.mainScreen().bounds.width) //Final
+    var screenHeight = Int(UIScreen.mainScreen().bounds.height) //Final
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let screen = ScreenDisplay(x: 0, y: 0, width: screenWidth, height : screenHeight)
+        self.view.addSubview(screen)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 
