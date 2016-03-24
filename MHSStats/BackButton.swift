@@ -15,22 +15,24 @@ public class BackButton : UIButton {
     var width: Int?
     var height: Int?
     var backButton: BackButton?
+    var circleDiameter: Int?
 
     public init(x : Int, y : Int, width : Int, height : Int, superScreen: ScreenDisplay) {
         self.superScreen = superScreen
         self.width = width
         self.height = height
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
-        self.addTarget(self, action: "pressed:", forControlEvents: UIControlEvents.TouchUpInside);
+        self.addTarget(self, action: #selector(BackButton.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         
     }
-
+    
     required public init(coder aDecoder: NSCoder) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        super.init(coder: aDecoder)!
     }
     
     override public func drawRect(rect: CGRect) {
-        self.drawCircle()
+        self.drawRedCircle()
+        self.drawGreyCircle()
         self.drawLeftArrow()
     }
     
@@ -38,34 +40,44 @@ public class BackButton : UIButton {
         let leftArrowShape = CAShapeLayer()
         let arrowWidth = FileStructure.arrowWidth
         let arrowHeight = FileStructure.arrowHeight
-        let middleWidth = 10
+        let middleWidth = FileStructure.arrowMiddleWidth
         self.layer.addSublayer(leftArrowShape)
         let path = UIBezierPath()
-        path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(0)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(-arrowHeight / 2)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(-middleWidth)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(-middleWidth)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(middleWidth)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(middleWidth)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(arrowHeight / 2)))
+        path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(-arrowHeight / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(-middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(-middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(arrowHeight / 2 + FileStructure.circleDiameter / 2)))
         path.closePath()
         leftArrowShape.path = path.CGPath
     }
     
-    func drawCircle() {
+    func drawGreyCircle() {
         let circle = CAShapeLayer()
         let color = UIColor.grayColor().CGColor
         circle.fillColor = color
-        let diameter = CGFloat(FileStructure.circleDiameter)
         self.layer.addSublayer(circle)
-        let box = CGRectMake(-10, -diameter / 2, CGFloat(FileStructure.circleDiameter), CGFloat(FileStructure.circleDiameter))
+        let box = CGRectMake(-10, CGFloat(0), CGFloat(FileStructure.circleDiameter), CGFloat(FileStructure.circleDiameter))
+        let ovalPath = UIBezierPath(ovalInRect : box)
+        ovalPath.closePath()
+        circle.path = ovalPath.CGPath
+    }
+    
+    func drawRedCircle() {
+        let circle = CAShapeLayer()
+        let color = FileStructure.MHSColor.CGColor
+        circle.fillColor = color
+        self.layer.addSublayer(circle)
+        let box = CGRectMake(-13, CGFloat(-3), CGFloat(FileStructure.circleDiameter + 6), CGFloat(FileStructure.circleDiameter + 6))
         let ovalPath = UIBezierPath(ovalInRect : box)
         ovalPath.closePath()
         circle.path = ovalPath.CGPath
     }
     
     func pressed(sender: UIButton!) {
-        superScreen!.transitionBackwards()
+        superScreen!.transitionBackwards(1.0)
     }
     
 }

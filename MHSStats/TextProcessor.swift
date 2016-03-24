@@ -12,7 +12,7 @@ public class TextProcessor {
     
     var records = Array<Array<Array<Record>>>()
     
-    public init() {
+    public init(screen: ScreenDisplay) {
         self.readTeams()
     }
     
@@ -30,16 +30,30 @@ public class TextProcessor {
             print("Error: \(myURLString) doesn't seem to be a valid URL")
         }
         var HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
-        var teamTexts = HTMLSubTexts[2].characters.split {$0 == "@"}.map { String($0) }
-        for var i = 1; i < teamTexts.count - 1; i++ {
-            records.append(Array<Array<Record>>())
-            processTeam(teamTexts[i], index: i - 1)
+        if(HTMLSubTexts == Array<String>()) {
+            do {
+                try HTML = NSString(contentsOfFile: "html.txt", encoding: NSUTF16BigEndianStringEncoding) as String} catch {
+                    
+                    return
+            }
+            HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
+            var teamTexts = HTMLSubTexts[2].characters.split {$0 == "@"}.map { String($0) }
+            for i in 1 ..< teamTexts.count - 1 {
+                records.append(Array<Array<Record>>())
+                processTeam(teamTexts[i], index: i - 1)
+            }
+        } else {
+            var teamTexts = HTMLSubTexts[2].characters.split {$0 == "@"}.map { String($0) }
+            for i in 1 ..< teamTexts.count - 1 {
+                records.append(Array<Array<Record>>())
+                processTeam(teamTexts[i], index: i - 1)
+            }
         }
     }
     
     func processTeam(group : String, index : Int) {
         var teamSubTexts = group.characters.split {$0 == "!"}.map { String($0) }
-        for var i = 1; i < teamSubTexts.count - 1; i++ {
+        for i in 1 ..< teamSubTexts.count - 1 {
             records[index].append(Array<Record>())
             processTeam(teamSubTexts[i], teamName: teamSubTexts[0], index1: index, index2: i - 1)
         }
@@ -47,7 +61,7 @@ public class TextProcessor {
     
     func processTeam(group : String, teamName : String, index1 : Int, index2 : Int) {
         var categoryTexts = group.characters.split {$0 == "?"}.map { String($0) }
-        for var i = 1; i < categoryTexts.count; i++ {
+        for i in 1 ..< categoryTexts.count {
             records[index1][index2].append(processWaypoint(categoryTexts[i], teamName : teamName, categoryName: categoryTexts[0]))
         }
     }
@@ -63,5 +77,14 @@ public class TextProcessor {
         let name = recordTexts[0]
         let theRecord = Record(name : name, mainData: data, dataUnits: dataUnits, year: year!, teamName: teamName, eventName: eventName, categoryName: categoryName)
         return theRecord
+    }
+    
+    func writeText(text: String) {
+        do {
+            try text.writeToFile("html.txt", atomically: false, encoding: NSUTF16BigEndianStringEncoding)}
+            
+        catch {
+            
+        }
     }
 }

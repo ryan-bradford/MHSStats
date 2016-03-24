@@ -14,45 +14,43 @@ public class TopBar: UIView {
     var backButton: BackButton?
     var superScreen: ScreenDisplay?
     var screenWidth: Int?
+    var mGraphic: MGraphic?
     
     public init(width : Int, superScreen: ScreenDisplay) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: FileStructure.topBarHeight))
         self.superScreen = superScreen
         self.screenWidth = width
-        initButton()
+        mGraphic = MGraphic(screenWidth: Int(width), y: Int(FileStructure.standardOffset))
+        self.addSubview(mGraphic!)
+        initButton(Int(mGraphic!.frame.height))
     }
 
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
     
-    func slideOnBackButton() {
-        let xPosition = backButton!.frame.origin.x - CGFloat(screenWidth!)
-        let yPosition = backButton!.frame.origin.y
-        
-        let height = backButton!.frame.size.height
-        let width = backButton!.frame.size.width
-        
-        UIView.animateWithDuration(1.0, animations: {
-            self.backButton!.frame = CGRectMake(xPosition, yPosition, width, height)
+    func slideOnBackButton(speed: Double) {
+        UIView.animateWithDuration(speed, animations: {
+            self.backButton!.alpha = 1.0
+            self.backButton!.alpha = 1.0
+            self.backButton!.alpha = 1.0
         })
     }
     
-    func slideOffBackButton() {
-        let xPosition = backButton!.frame.origin.x + CGFloat(screenWidth!)
-        let yPosition = backButton!.frame.origin.y
-        
-        let height = backButton!.frame.size.height
-        let width = backButton!.frame.size.width
-        
-        UIView.animateWithDuration(1.0, animations: {
-            self.backButton!.frame = CGRectMake(xPosition, yPosition, width, height)
+    func slideOffBackButton(speed: Double) {
+        UIView.animateWithDuration(speed, animations: {
+            self.backButton!.alpha = 0.0
+            self.backButton!.alpha = 0.0
+            self.backButton!.alpha = 0.0
         })
     }
     
-    func initButton() {
-        backButton = BackButton(x: 10 + screenWidth!, y: 10, width: FileStructure.circleDiameter, height: FileStructure.circleDiameter, superScreen: superScreen!)
+    func initButton(height: Int) {
+        backButton = BackButton(x: 20, y: FileStructure.standardOffset, width: height, height: height, superScreen: superScreen!)
         self.addSubview(backButton!)
+        self.backButton!.alpha = 0.0
+        self.backButton!.alpha = 0.0
+        self.backButton!.alpha = 0.0
     }
     
 }

@@ -10,13 +10,13 @@ import Foundation
 
 public class Record {
     
-    public var mainData: String
-    public var dataUnits : String
+    public var mainData: String //Done
+    public var dataUnits : String //Done
     public var year : Int
-    public var teamName : String
-    public var eventName : String
-    public var categoryName : String
-    public var personName : String
+    public var teamName : String //Done
+    public var eventName : String //Done
+    public var categoryName : String //Done
+    public var personName : String //Done
     
     public init(name : String, mainData : String, dataUnits : String, year : Int, teamName : String, eventName : String, categoryName : String) {
         self.mainData = mainData

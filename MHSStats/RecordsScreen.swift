@@ -1,3 +1,4 @@
+
 //
 //  TeamScreen.swift
 //  MHSStats
@@ -12,6 +13,7 @@ import UIKit
 public class RecordsScreen : MyScrollView {
     
     var buttons = Array<RecordButton>()
+    var visible: Bool?
     
     init(x : Int, y : Int, width : Int, height : Int, records : Array<Record>, superScreen: ScreenDisplay) {
         let neededHeight = (Double(height) * 0.1 * Double((Int(records.count) + 1)))
@@ -23,14 +25,19 @@ public class RecordsScreen : MyScrollView {
     }
     
     required public init(coder aDecoder: NSCoder) {
-        super.init(frame: CGRect(x: 1, y: 1, width: 1, height: 1))
+        super.init(coder: aDecoder)
     }
     
     func addTeams(records : Array<Record>, screenWidth : Int, screenHeight : Int) {
-        for var i = 0.0; i < Double(records.count); i++ {
-            let currentButton = RecordButton(x: 0, y: Int(Double(screenHeight) * 0.1 * i), width: screenWidth, height: Int(Double(screenHeight) * 0.1), record: records[Int(i)])
+        for i in 0 ..< records.count {
+            let currentButton = RecordButton(x: 0, y: Int(Double(screenHeight) * 0.1 * Double(i)), width: screenWidth, height: Int(Double(screenHeight) * 0.1), record: records[Int(i)])
             buttons.append(currentButton)
-            self.addSubview(buttons[Int(i)])
+            self.addSubview(buttons[(i)])
         }
     }
+    
+    func setVisible() {
+        visible = true
+    }
+    
 }
