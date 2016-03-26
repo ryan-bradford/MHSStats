@@ -90,7 +90,7 @@ public class MGraphic : UIView {
         let vertHeight = vertMovingPane!.frame.size.height
         let vertWidth = vertMovingPane!.frame.size.width
         
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(0.5, animations: {
             self.vertMovingPane!.frame = CGRectMake(xVertPosition, yVertPosition, vertWidth, vertHeight)
             }, completion: {
                 (value: Bool) in
@@ -106,7 +106,7 @@ public class MGraphic : UIView {
         let horHeight = horMovingPane!.frame.size.height
         let horWidth = horMovingPane!.frame.size.width
         
-        UIView.animateWithDuration(2.0, animations: {
+        UIView.animateWithDuration(1.0, animations: {
             self.horMovingPane!.frame = CGRectMake(xHorPosition - 2.5 * CGFloat(FileStructure.mLineWidth), yHorPosition, horWidth, horHeight)
         }, completion: {
                 (value: Bool) in
@@ -122,7 +122,7 @@ public class MGraphic : UIView {
         let vertHeight = vertMovingPane!.frame.size.height
         let vertWidth = vertMovingPane!.frame.size.width
         
-        UIView.animateWithDuration(1.0, animations: {
+        UIView.animateWithDuration(0.5, animations: {
             self.vertMovingPane!.frame = CGRectMake(xVertPosition, yVertPosition, vertWidth, vertHeight)
             }, completion: {
                 (value: Bool) in

@@ -10,7 +10,6 @@
 		9412E1571C8F4ADC00452C4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E1561C8F4ADC00452C4F /* AppDelegate.swift */; };
 		9412E1591C8F4ADC00452C4F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E1581C8F4ADC00452C4F /* ViewController.swift */; };
 		9412E15C1C8F4ADC00452C4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9412E15A1C8F4ADC00452C4F /* Main.storyboard */; };
-		9412E15E1C8F4ADC00452C4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9412E15D1C8F4ADC00452C4F /* Assets.xcassets */; };
 		9412E1611C8F4ADC00452C4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9412E15F1C8F4ADC00452C4F /* LaunchScreen.storyboard */; };
 		9412E16C1C8F4ADC00452C4F /* MHSStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E16B1C8F4ADC00452C4F /* MHSStatsTests.swift */; };
 		9412E1771C8F4ADC00452C4F /* MHSStatsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E1761C8F4ADC00452C4F /* MHSStatsUITests.swift */; };
@@ -23,10 +22,14 @@
 		9412E1991C90D13400452C4F /* RecordsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E1981C90D13400452C4F /* RecordsScreen.swift */; };
 		9412E19B1C90D47A00452C4F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E19A1C90D47A00452C4F /* CategoryButton.swift */; };
 		9412E19D1C90D4B000452C4F /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E19C1C90D4B000452C4F /* RecordButton.swift */; };
+		9438217E1C99CEBE000CCE6F /* MyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438217D1C99CEBE000CCE6F /* MyButton.swift */; };
 		944931941C92F68A00F3531B /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944931931C92F68A00F3531B /* TopBar.swift */; };
+		9460AC271C9B632D00234455 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9460AC261C9B632D00234455 /* Images.xcassets */; };
+		946437F21C9361CC0004CD30 /* MGraphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946437F11C9361CC0004CD30 /* MGraphic.swift */; };
 		947E4BAC1C91EBEE0038AC8D /* MyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947E4BAB1C91EBEE0038AC8D /* MyScrollView.swift */; };
 		947E4BAE1C91EC910038AC8D /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947E4BAD1C91EC910038AC8D /* BackButton.swift */; };
 		947E4BB01C92223F0038AC8D /* FileStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947E4BAF1C92223F0038AC8D /* FileStructure.swift */; };
+		94DB6A501CA34B82004ECC72 /* WaysToGoBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DB6A4F1CA34B82004ECC72 /* WaysToGoBack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +54,6 @@
 		9412E1561C8F4ADC00452C4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9412E1581C8F4ADC00452C4F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9412E15B1C8F4ADC00452C4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9412E15D1C8F4ADC00452C4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9412E1601C8F4ADC00452C4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9412E1621C8F4ADC00452C4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9412E1671C8F4ADC00452C4F /* MHSStatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MHSStatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,10 +71,14 @@
 		9412E1981C90D13400452C4F /* RecordsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsScreen.swift; sourceTree = "<group>"; };
 		9412E19A1C90D47A00452C4F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		9412E19C1C90D4B000452C4F /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		9438217D1C99CEBE000CCE6F /* MyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyButton.swift; sourceTree = "<group>"; };
 		944931931C92F68A00F3531B /* TopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
+		9460AC261C9B632D00234455 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		946437F11C9361CC0004CD30 /* MGraphic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGraphic.swift; sourceTree = "<group>"; };
 		947E4BAB1C91EBEE0038AC8D /* MyScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyScrollView.swift; sourceTree = "<group>"; };
 		947E4BAD1C91EC910038AC8D /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		947E4BAF1C92223F0038AC8D /* FileStructure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileStructure.swift; sourceTree = "<group>"; };
+		94DB6A4F1CA34B82004ECC72 /* WaysToGoBack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaysToGoBack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,16 +129,18 @@
 		9412E1551C8F4ADC00452C4F /* MHSStats */ = {
 			isa = PBXGroup;
 			children = (
+				9460AC261C9B632D00234455 /* Images.xcassets */,
+				946437F31C9361D30004CD30 /* Graphics */,
 				9412E18C1C8F791C00452C4F /* Processing */,
 				9412E1851C8F4AFE00452C4F /* Screens */,
 				9412E1841C8F4AEE00452C4F /* Buttons */,
 				9412E1561C8F4ADC00452C4F /* AppDelegate.swift */,
 				9412E1581C8F4ADC00452C4F /* ViewController.swift */,
 				9412E15A1C8F4ADC00452C4F /* Main.storyboard */,
-				9412E15D1C8F4ADC00452C4F /* Assets.xcassets */,
 				9412E15F1C8F4ADC00452C4F /* LaunchScreen.storyboard */,
 				9412E1621C8F4ADC00452C4F /* Info.plist */,
 				947E4BAF1C92223F0038AC8D /* FileStructure.swift */,
+				94DB6A4F1CA34B82004ECC72 /* WaysToGoBack.swift */,
 			);
 			path = MHSStats;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				9412E19A1C90D47A00452C4F /* CategoryButton.swift */,
 				9412E19C1C90D4B000452C4F /* RecordButton.swift */,
 				947E4BAD1C91EC910038AC8D /* BackButton.swift */,
+				9438217D1C99CEBE000CCE6F /* MyButton.swift */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -186,6 +195,14 @@
 				9412E18F1C8F793400452C4F /* TextProcessor.swift */,
 			);
 			name = Processing;
+			sourceTree = "<group>";
+		};
+		946437F31C9361D30004CD30 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				946437F11C9361CC0004CD30 /* MGraphic.swift */,
+			);
+			name = Graphics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,8 +309,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9460AC271C9B632D00234455 /* Images.xcassets in Resources */,
 				9412E1611C8F4ADC00452C4F /* LaunchScreen.storyboard in Resources */,
-				9412E15E1C8F4ADC00452C4F /* Assets.xcassets in Resources */,
 				9412E15C1C8F4ADC00452C4F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,13 +340,16 @@
 				947E4BAC1C91EBEE0038AC8D /* MyScrollView.swift in Sources */,
 				9412E19B1C90D47A00452C4F /* CategoryButton.swift in Sources */,
 				9412E1591C8F4ADC00452C4F /* ViewController.swift in Sources */,
+				946437F21C9361CC0004CD30 /* MGraphic.swift in Sources */,
 				9412E18E1C8F792A00452C4F /* Record.swift in Sources */,
+				9438217E1C99CEBE000CCE6F /* MyButton.swift in Sources */,
 				9412E1891C8F4D3300452C4F /* TeamsScreen.swift in Sources */,
 				9412E1571C8F4ADC00452C4F /* AppDelegate.swift in Sources */,
 				944931941C92F68A00F3531B /* TopBar.swift in Sources */,
 				947E4BB01C92223F0038AC8D /* FileStructure.swift in Sources */,
 				9412E19D1C90D4B000452C4F /* RecordButton.swift in Sources */,
 				9412E1971C90D10B00452C4F /* CategorysScreen.swift in Sources */,
+				94DB6A501CA34B82004ECC72 /* WaysToGoBack.swift in Sources */,
 				9412E1901C8F793400452C4F /* TextProcessor.swift in Sources */,
 				9412E1941C90D05F00452C4F /* ScreenDisplay.swift in Sources */,
 				947E4BAE1C91EC910038AC8D /* BackButton.swift in Sources */,

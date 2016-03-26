@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         redScreen.backgroundColor = FileStructure.MHSColor
         self.view.addSubview(redScreen)
         screen.loadAndProcessRecords()
-        UIView.animateWithDuration(2, animations: {
+        UIView.animateWithDuration(1, animations: {
             redScreen.frame = CGRectMake(0, CGFloat(self.screenHeight + 10), CGFloat(self.screenWidth), CGFloat(self.screenHeight))
             }, completion: {
                 (value: Bool) in
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         let vertHeight = screen.frame.size.height
         let vertWidth = screen.frame.size.width
         
-        UIView.animateWithDuration(2, animations: {
+        UIView.animateWithDuration(1, animations: {
             screen.frame = CGRectMake(xVertPosition, yVertPosition, vertWidth, vertHeight)
             }, completion: {
                 (value: Bool) in

@@ -12,10 +12,16 @@ import UIKit
 public class RecordButton : MyButton {
     
     public var record : Record?
+    public var height: Double?
+    var screenHeight: Double?
     
-    public init(x : Int, y : Int, width : Int, height : Int, record : Record) {
+    public init(x : Int, y : Int, width : Int, record : Record, screenHeight: Double) {
         self.record = record
-        super.init(frame: CGRect(x: x, y: y, width: width, height: height))
+        self.screenHeight = screenHeight
+        let myHeight = (CGFloat(Double(screenHeight) * 0.1))
+        super.init(frame: CGRect(x: x, y: y, width: width, height: Int(myHeight)))
+        height = drawText()
+        self.frame = CGRect(x: x, y: y, width: width, height: Int(height!))
         self.addTarget(self, action: #selector(RecordButton.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         
     }
@@ -26,16 +32,22 @@ public class RecordButton : MyButton {
     
     override public func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        var pushDown = drawCenteredTextInRect(0, y: 0, width: self.frame.width, height: self.frame.height / 2, toDraw: record!.eventName, fontSize: 20)
-        drawCenteredTextInRect(0, y: pushDown - 2, width: self.frame.width / 2, height: 8 * self.frame.height / 24, toDraw: record!.personName, fontSize: 15)
+        drawText()
+    }
+    
+    func drawText() -> Double {
+        var pushDown = drawTextWithNoBox(0, y: 0, width: self.frame.width, toDraw: record!.eventName, fontSize: 20)
+        let heightOfLast = drawTextWithNoBox(0, y: pushDown, width: self.frame.width / 2, toDraw: record!.personName, fontSize: 15)
         var shiftSideways = self.frame.width / 2
         var widthToDrawIn = self.frame.width / 2
         if(record!.personName == " ") {
             shiftSideways = 0
             widthToDrawIn = self.frame.width
         }
-        pushDown += drawCenteredTextInRect(shiftSideways, y: pushDown - 2, width: widthToDrawIn, height: 8 * self.frame.height / 24, toDraw: record!.mainData + ": " + record!.dataUnits, fontSize: 15)
-        drawCenteredTextInRect(0, y: pushDown - 5, width: self.frame.width, height: 8 * self.frame.height / 24, toDraw: String(record!.year), fontSize: 15)
+        drawCenteredTextInRect(shiftSideways, y: pushDown, width: widthToDrawIn, height: heightOfLast, toDraw: record!.mainData + ": " + record!.dataUnits, fontSize: 15)
+        pushDown += heightOfLast
+        pushDown += drawTextWithNoBox(0, y: pushDown, width: self.frame.width, toDraw: String(record!.year), fontSize: 15)
+        return Double(pushDown)
     }
     
     func pressed(sender: UIButton!) {

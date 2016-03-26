@@ -29,8 +29,10 @@ public class RecordsScreen : MyScrollView {
     }
     
     func addTeams(records : Array<Record>, screenWidth : Int, screenHeight : Int) {
+        var currentY = 0.0
         for i in 0 ..< records.count {
-            let currentButton = RecordButton(x: 0, y: Int(Double(screenHeight) * 0.1 * Double(i)), width: screenWidth, height: Int(Double(screenHeight) * 0.1), record: records[Int(i)])
+            let currentButton = RecordButton(x: 0, y: Int(currentY), width: screenWidth, record: records[Int(i)], screenHeight: Double(screenHeight))
+            currentY += currentButton.height!
             buttons.append(currentButton)
             self.addSubview(buttons[(i)])
         }
