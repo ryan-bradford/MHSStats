@@ -11,65 +11,87 @@ import Foundation
 public class TextProcessor {
     
     var records = Array<Array<Array<Record>>>()
-    
+    var newRecords = Array<Record>()
+    var HTML = ""
+    var screen: ScreenDisplay
     public init(screen: ScreenDisplay) {
+        self.screen = screen
         self.readTeams()
     }
     
-    func readTeams() {
-        let myURLString = "https://docs.google.com/document/d/1YFzqzjZnrK1HsAk9wN5uy4ZDozBoMyTFrZkC8OINrfM/edit?usp=sharing"
-        var HTML = ""
-        if let myURL = NSURL(string: myURLString) {
-            do {
-                let myHTMLString = try NSString(contentsOfURL: myURL, encoding: NSUTF8StringEncoding)
-                HTML = myHTMLString as String
-            } catch {
-                print("error")
+    func load(URL: NSURL) {
+        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
+        let request = NSMutableURLRequest(URL: URL)
+        request.HTTPMethod = "GET"
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            if (error == nil) {
+                self.HTML = String(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                self.processData()
+                self.screen.records = self.records
+                self.screen.newRecords = self.newRecords
             }
-        } else {
-            print("Error: \(myURLString) doesn't seem to be a valid URL")
-        }
+            else {
+                print("Faulure: %@", error!.localizedDescription);
+            }
+        })
+        task.resume()
+    }
+    
+    func processData() {
         var HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
         if(HTMLSubTexts == Array<String>()) {
+            print("File")
             do {
                 try HTML = NSString(contentsOfFile: "html.txt", encoding: NSUTF16BigEndianStringEncoding) as String} catch {
                     
                     return
             }
             HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
-            var teamTexts = HTMLSubTexts[2].characters.split {$0 == "@"}.map { String($0) }
+            var teamTexts = HTMLSubTexts[1].characters.split {$0 == "@"}.map { String($0) }
             for i in 1 ..< teamTexts.count - 1 {
                 records.append(Array<Array<Record>>())
-                processTeam(teamTexts[i], index: i - 1)
+                processText(teamTexts[i], index: i - 1)
             }
         } else {
-            var teamTexts = HTMLSubTexts[2].characters.split {$0 == "@"}.map { String($0) }
+            var teamTexts = HTMLSubTexts[1].characters.split {$0 == "@"}.map { String($0) }
             for i in 1 ..< teamTexts.count - 1 {
                 records.append(Array<Array<Record>>())
-                processTeam(teamTexts[i], index: i - 1)
+                processText(teamTexts[i], index: i - 1)
             }
+            var newRecordsTexts = HTMLSubTexts[2].characters.split {$0 == "?"}.map { String($0) }
+            for i in 1 ..< newRecordsTexts.count {
+                newRecords.append(processRecord(newRecordsTexts[i]))
+            }
+            
         }
+
     }
     
-    func processTeam(group : String, index : Int) {
+    func readTeams() {
+        let myURLString = "http://mmiillkkaa.hopto.org/rbradford/TeamData.txt"
+        load(NSURL(string: myURLString)!)
+    }
+    
+    func processText(group : String, index : Int) {
         var teamSubTexts = group.characters.split {$0 == "!"}.map { String($0) }
-        for i in 1 ..< teamSubTexts.count - 1 {
+        for i in 0 ..< teamSubTexts.count - 1 {
             records[index].append(Array<Record>())
-            processTeam(teamSubTexts[i], teamName: teamSubTexts[0], index1: index, index2: i - 1)
+            processTeam(teamSubTexts[i], index1: index, index2: i - 1)
         }
     }
     
-    func processTeam(group : String, teamName : String, index1 : Int, index2 : Int) {
+    func processTeam(group : String, index1 : Int, index2 : Int) {
         var categoryTexts = group.characters.split {$0 == "?"}.map { String($0) }
         for i in 1 ..< categoryTexts.count {
-            records[index1][index2].append(processWaypoint(categoryTexts[i], teamName : teamName, categoryName: categoryTexts[0]))
+            records[index1][index2].append(processRecord(categoryTexts[i]))
         }
     }
     
-    func processWaypoint(record : String, teamName : String, categoryName : String) -> Record {
+    func processRecord(record : String) -> Record {
         let recordTexts = record.characters.split {$0 == ","}.map { String($0) }
-        let teamName = teamName
-        let categoryName = categoryName
+        let teamName = recordTexts[5]
+        let categoryName = recordTexts[6]
         let data = (recordTexts[2])
         let dataUnits = recordTexts[3]
         let year = Int(recordTexts[4])

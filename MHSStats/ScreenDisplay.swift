@@ -18,6 +18,7 @@ public class ScreenDisplay : UIView {
     var screenWidth : Int?
     var topBar: TopBar?
     var teamIDDisplayed: Int?
+    var newRecords: Array<Record>?
     var categoryIDDisplayed: Int?
     
     public init(x : Int, y : Int, width : Int, height : Int) {
@@ -94,8 +95,7 @@ public class ScreenDisplay : UIView {
     func loadAndProcessRecords() {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let processor = TextProcessor(screen: self)
-            self.records = processor.records
+            _ = TextProcessor(screen: self)
         }
     }
     
@@ -105,22 +105,24 @@ public class ScreenDisplay : UIView {
             while(self.records == nil) {
                 
             }
+            let pushDown = FileStructure.topBarHeight
             dispatch_async(dispatch_get_main_queue()) {
                 self.categoryScreens = Array<CategoryScreen>()
                 self.recordsScreens = Array<Array<RecordsScreen>>()
                 for i in 0 ..< self.records!.count {
                     self.recordsScreens!.append(Array<RecordsScreen>())
-                    self.categoryScreens!.append(CategoryScreen(x: width, y: FileStructure.topBarHeight, width: width, height: height, records: self.records![i], teamID: i, superScreen: self))
+                    self.categoryScreens!.append(CategoryScreen(x: width, y: pushDown, width: width, height: height, records: self.records![i], teamID: i, superScreen: self))
                     for x in 0 ..< self.records![i].count {
-                        self.recordsScreens![i].append(RecordsScreen(x: width, y: FileStructure.topBarHeight, width: width, height: height, records: self.records![i][x], superScreen: self))
+                        self.recordsScreens![i].append(RecordsScreen(x: width, y: pushDown, width: width, height: height, records: self.records![i][x], superScreen: self))
                     }
                 }
-                self.teamsScreen = TeamsScreen(x: 0, y: FileStructure.topBarHeight, width: width, height: height, records: self.records!, superScreen: self)
+                self.teamsScreen = TeamsScreen(x: 0, y: pushDown, width: width, height: height, records: self.records!, superScreen: self)
                 self.teamsScreen!.setVisible()
                 self.teamsScreen!.alpha = 0.0
                 self.addSubview(self.teamsScreen!)
                 UIView.animateWithDuration(0.7, animations: {
                     self.teamsScreen!.alpha = 1.0
+                    self.teamsScreen!.newRecordsBar!.alpha = 1.0
                     }, completion: {
                         (value: Bool) in
                         for i in 0 ..< self.recordsScreens!.count {

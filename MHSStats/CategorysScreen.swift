@@ -17,7 +17,7 @@ public class CategoryScreen : MyScrollView {
 
     public init(x : Int, y : Int, width : Int, height : Int, records : Array<Array<Record>>, teamID : Int, superScreen : ScreenDisplay) {
         super.init(frame: CGRect(x: x, y: y, width: width, height: height), superScreen: superScreen)
-        let neededHeight = Int((Double(height) * 0.1 * Double((records.count + 1))))
+        let neededHeight = Int((Double(height) * 0.1 * Double((records.count + 2))))
         self.contentSize = (CGSizeMake(CGFloat(width), CGFloat(neededHeight)))
         self.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.teamID = teamID
@@ -31,7 +31,7 @@ public class CategoryScreen : MyScrollView {
     }
     
     func addCategories(records : Array<Array<Record>>, screenWidth : Int, screenHeight : Int) {
-        for i in 0 ..< records.count {
+        for i in 0 ..< records.count - 1 {
             let currentButton = CategoryButton(x: 0, y: Int(Double(screenHeight) * 0.1 * Double(i)), width: screenWidth, height: Int(Double(screenHeight) * 0.1), categoryName: records[Int(i)][0].categoryName, superScreen: self, teamID: teamID!, categoryID: Int(i))
             buttons.append(currentButton)
             self.addSubview(buttons[Int(i)])

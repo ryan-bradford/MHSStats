@@ -26,14 +26,18 @@ public class Record {
         self.teamName = teamName
         self.categoryName = categoryName
         self.personName = name
-        self.categoryName = stripSlashN(categoryName)
-        self.teamName = stripSlashN(teamName)
+        self.categoryName = categoryName
+        self.teamName = teamName
     }
     
-    func stripSlashN(stuff : NSString) -> String {
-        let splitPoint = (stuff as String).characters.count
-        return stuff.substringWithRange(NSMakeRange(0, splitPoint - 2))
+    func getQuickName() -> String {
+        var nameParts = personName.characters.split {$0 == " "}.map { String($0) }
+        var quickName = ""
+        for i in 0 ..< nameParts.count {
+            quickName.append((nameParts[i].characters.first! as Character))
+            quickName.append("." as Character)
+        }
+        return quickName
     }
-    
     
 }

@@ -14,13 +14,13 @@ public class RecordsScreen : MyScrollView {
     
     var buttons = Array<RecordButton>()
     var visible: Bool?
-    
+    var totalHeight = 0.0
     init(x : Int, y : Int, width : Int, height : Int, records : Array<Record>, superScreen: ScreenDisplay) {
-        let neededHeight = (Double(height) * 0.1 * Double((Int(records.count) + 1)))
         super.init(frame: CGRect(x: x, y: y, width: width, height: height), superScreen: superScreen)
-        self.contentSize = (CGSizeMake(CGFloat(width), CGFloat(neededHeight)))
         self.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.addTeams(records, screenWidth : width, screenHeight : height)
+        let neededHeight = totalHeight + Double(FileStructure.topBarHeight)
+        self.contentSize = (CGSizeMake(CGFloat(width), CGFloat(neededHeight)))
         self.backgroundColor = UIColor(red: (1), green: 1, blue: (1), alpha: (1))
     }
     
@@ -29,10 +29,9 @@ public class RecordsScreen : MyScrollView {
     }
     
     func addTeams(records : Array<Record>, screenWidth : Int, screenHeight : Int) {
-        var currentY = 0.0
         for i in 0 ..< records.count {
-            let currentButton = RecordButton(x: 0, y: Int(currentY), width: screenWidth, record: records[Int(i)], screenHeight: Double(screenHeight))
-            currentY += currentButton.height!
+            let currentButton = RecordButton(x: 0, y: Int(totalHeight), width: screenWidth, record: records[Int(i)], screenHeight: Double(screenHeight))
+            totalHeight += currentButton.height!
             buttons.append(currentButton)
             self.addSubview(buttons[(i)])
         }

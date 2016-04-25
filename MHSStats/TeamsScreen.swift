@@ -13,11 +13,15 @@ public class TeamsScreen : MyScrollView {
     
     var buttons = Array<TeamButton>()
     var visible: Bool?
+    var newRecordsBar: NewRecordsBar?
 
     init(x : Int, y : Int, width : Int, height : Int, records : Array<Array<Array<Record>>>, superScreen : ScreenDisplay) {
         super.init(frame: CGRect(x: x, y: y, width: width, height: height), superScreen: superScreen)
         self.superScreen = superScreen
-        let neededHeight = Int((Double(height) * 0.1 * Double((records.count + 1))))
+        self.newRecordsBar = NewRecordsBar(screenWidth: width, newRecords: superScreen.newRecords!, screen:superScreen)
+        self.addSubview(self.newRecordsBar!)
+        self.newRecordsBar!.alpha = 0.0
+        let neededHeight = Int((Double(height) * 0.1 * Double((records.count + 2)))) + FileStructure.newRecordsBarHeight
         self.contentSize = (CGSizeMake(CGFloat(width), CGFloat(neededHeight)))
         self.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.addTeams(records, screenWidth : width, screenHeight : height)
@@ -30,7 +34,7 @@ public class TeamsScreen : MyScrollView {
     
     func addTeams(records : Array<Array<Array<Record>>>, screenWidth : Int, screenHeight : Int) {
         for i in 0 ..< records.count {
-            let currentButton = TeamButton(x: 0, y: Int(Double((screenHeight)) * 0.1 * Double(i)), width: screenWidth, height: Int(Double(screenHeight) * 0.1), teamName: records[Int(i)][0][0].teamName, superScreen : self, index : Int(i))
+            let currentButton = TeamButton(x: 0, y: FileStructure.newRecordsBarHeight +  Int(Double((screenHeight)) * 0.1 * Double(i)), width: screenWidth, height: Int(Double(screenHeight) * 0.1), teamName: records[Int(i)][0][0].teamName, superScreen : self, index : Int(i))
             buttons.append(currentButton)
             self.addSubview(buttons[Int(i)])
         }

@@ -16,6 +16,8 @@ public struct FileStructure {
     public static let arrowHeight = 35
     public static let arrowMiddleWidth = 15
     public static let topBarHeight = 100
+    public static let newRecordsBarHeight = 100
+    public static let newRecordButtonGap = 10
     
     public static let mHeight = 70.0
     public static let mWidth = 50.0

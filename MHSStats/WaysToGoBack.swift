@@ -43,7 +43,6 @@ public class WaysToGoBack: NSObject {
     }
     
     func swipedView() {
-        print("Swiped")
         screen.transitionBackwards(1.0)
     }
     
