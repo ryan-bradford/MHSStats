@@ -40,7 +40,7 @@ public class RecordsGraph: UIMethods {
         (self.drawTextWithNoBox(CGFloat(width!/2), y: CGFloat(height!) + (5 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(xRanges![1])), fontSize: 12))
         (self.drawTextWithNoBox((-CGFloat(width!/2)) + CGFloat(horTextSpace / 2), y: (CGFloat(vertTextSpace)), width: CGFloat(width!), toDraw: String(Int(yRanges![0])), fontSize: 12))
         (self.drawTextWithNoBox((-CGFloat(width!/2)) + CGFloat(horTextSpace / 2), y: CGFloat(height!) + (3 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(yRanges![1])), fontSize: 12))
-        self.drawTextWithNoBox(CGFloat(horTextSpace), y: (0), width: CGFloat(width!), toDraw: "Records", fontSize: 14)
+        self.drawTextWithNoBox(CGFloat(horTextSpace), y: (0), width: CGFloat(width!), toDraw: "Records vs Time Graph", fontSize: 14)
     }
     
     

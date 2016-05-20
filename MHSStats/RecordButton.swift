@@ -37,13 +37,16 @@ public class RecordButton : MyButton {
     
     func drawText() -> Double {
         var pushDown = drawTextWithNoBox(0, y: 0, width: self.frame.width, toDraw: record!.eventName, fontSize: 20)
-        let heightOfLast = drawTextWithNoBox(0, y: pushDown, width: self.frame.width / 2, toDraw: record!.personName, fontSize: 15)
+        var toDisplay = record!.personName.copy() as! String
+        toDisplay = toDisplay.stringByReplacingOccurrencesOfString("_", withString: " ")
+        let heightOfLast = drawTextWithNoBox(0, y: pushDown, width: self.frame.width / 2, toDraw: toDisplay, fontSize: 15)
         var shiftSideways = self.frame.width / 2
         var widthToDrawIn = self.frame.width / 2
-        if(record!.personName == " ") {
+        if(toDisplay == " ") {
             shiftSideways = 0
             widthToDrawIn = self.frame.width
         }
+        
         drawCenteredTextInRect(shiftSideways, y: pushDown, width: widthToDrawIn, height: heightOfLast, toDraw: record!.mainData + ": " + record!.dataUnits, fontSize: 15)
         pushDown += heightOfLast
         pushDown += drawTextWithNoBox(0, y: pushDown, width: self.frame.width, toDraw: String(record!.year), fontSize: 15)

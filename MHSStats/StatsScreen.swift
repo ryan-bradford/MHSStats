@@ -20,6 +20,8 @@ public class StatsScreen : MyScrollView {
     let boxWidthCount = 2.0
     var recordsGraph: RecordsGraph?
     var bestTeamScreen: BestTeamScreen?
+    var mostRecTeamScreen: MostRecordsDisplay?
+    var bestPlayerScreen: BestPlayerDisplay?
     var stuffShown = false
     var toDrawGraph = true
     
@@ -38,7 +40,7 @@ public class StatsScreen : MyScrollView {
     
     func drawBoxes() {
         boxWidth = width! / boxWidthCount
-        boxHeight = height! / boxHeightCount
+        boxHeight = (height!-FileStructure.topBarHeight) / boxHeightCount
         FileStructure.MHSColor.set()
         var path: UIBezierPath
         for i in 0 ..< Int(boxHeightCount) + 1 {
@@ -62,31 +64,20 @@ public class StatsScreen : MyScrollView {
     
     func displayStats() {
         if(toDrawGraph) {
-            recordsGraph = RecordsGraph(x: -5 + 3 * width!/16, y: 5, width: width! / boxWidthCount + width!/8, height: height! / boxHeightCount, records: records!)
+            recordsGraph = RecordsGraph(x: -5 + 3 * width!/16, y: 5, width: width! / boxWidthCount + width!/8, height: boxHeight!, records: records!)
             self.addSubview(recordsGraph!)
         }
             
         bestTeamScreen = BestTeamScreen(x: 3, y: boxHeight! + 5, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
         self.addSubview(bestTeamScreen!)
         
-        getTeamWithMostRecords()
+        mostRecTeamScreen = MostRecordsDisplay(x: 3 + boxWidth!, y: boxHeight! + 5, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
+        self.addSubview(mostRecTeamScreen!)
+        
+        bestPlayerScreen = BestPlayerDisplay(x: 3, y: 2 * boxHeight! + 10, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
+        self.addSubview(bestPlayerScreen!)
     }
     
-    func getTeamWithMostRecords() -> String {
-        var bestTeamID = 0
-        var greatestSum = 0
-        for i in 0 ..< records!.count {
-            if(records![i].count > greatestSum) {
-                greatestSum = records![i].count
-                bestTeamID = i
-            }
-        }
-        if(greatestSum == 0) {
-            return "No Records Yet"
-        }
-        return records![bestTeamID][0][0].teamName
-    }
-        
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

@@ -61,7 +61,7 @@ public class BestTeamScreen: UIMethods {
             }
         }
         if(greatestSum == 0) {
-            return "No Full Year Records Yet"
+            return "Boys Cross Country"
         }
         return records![bestTeamID][0][0].teamName
     }
