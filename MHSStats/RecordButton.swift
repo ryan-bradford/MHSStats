@@ -15,13 +15,13 @@ public class RecordButton : MyButton {
     public var height: Double?
     var screenHeight: Double?
     
-    public init(x : Int, y : Int, width : Int, record : Record, screenHeight: Double) {
+    public init(x : Double, y : Double, width : Double, record : Record, screenHeight: Double) {
         self.record = record
         self.screenHeight = screenHeight
-        let myHeight = (CGFloat(Double(screenHeight) * 0.1))
-        super.init(frame: CGRect(x: x, y: y, width: width, height: Int(myHeight)))
+        let myHeight = (Double(screenHeight) * 0.1)
+        super.init(frame: CGRect(x: x, y: y, width: width, height: (myHeight)))
         height = drawText()
-        self.frame = CGRect(x: x, y: y, width: width, height: Int(height!))
+        self.frame = CGRect(x: x, y: y, width: width, height: (height!))
         self.addTarget(self, action: #selector(RecordButton.pressed(_:)), forControlEvents: UIControlEvents.TouchUpInside);
         
     }

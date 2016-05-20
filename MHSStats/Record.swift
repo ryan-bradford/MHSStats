@@ -12,13 +12,13 @@ public class Record {
     
     public var mainData: String //Done
     public var dataUnits : String //Done
-    public var year : Int
+    public var year : Double
     public var teamName : String //Done
     public var eventName : String //Done
     public var categoryName : String //Done
     public var personName : String //Done
     
-    public init(name : String, mainData : String, dataUnits : String, year : Int, teamName : String, eventName : String, categoryName : String) {
+    public init(name : String, mainData : String, dataUnits : String, year : Double, teamName : String, eventName : String, categoryName : String) {
         self.mainData = mainData
         self.dataUnits = dataUnits
         self.year = year

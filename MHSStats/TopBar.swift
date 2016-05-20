@@ -13,16 +13,16 @@ public class TopBar: UIView {
     
     var backButton: BackButton?
     var superScreen: ScreenDisplay?
-    var screenWidth: Int?
+    var screenWidth: Double?
     var mGraphic: MGraphic?
     
-    public init(width : Int, superScreen: ScreenDisplay) {
+    public init(width : Double, superScreen: ScreenDisplay) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: FileStructure.topBarHeight))
         self.superScreen = superScreen
         self.screenWidth = width
-        mGraphic = MGraphic(screenWidth: Int(width), y: Int(FileStructure.standardOffset))
+        mGraphic = MGraphic(screenWidth: (width), y: (FileStructure.standardOffset))
         self.addSubview(mGraphic!)
-        initButton(Int(mGraphic!.frame.height))
+        initButton(Double(mGraphic!.frame.height))
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -45,8 +45,8 @@ public class TopBar: UIView {
         })
     }
     
-    func initButton(height: Int) {
-        backButton = BackButton(x: 20, y: FileStructure.standardOffset, width: height, height: height, superScreen: superScreen!)
+    func initButton(height: Double) {
+        backButton = BackButton(x: 20.0, y: FileStructure.standardOffset, width: FileStructure.circleDiameter + 6.0, height: FileStructure.circleDiameter + 6.0, superScreen: superScreen!)
         self.addSubview(backButton!)
         self.backButton!.alpha = 0.0
         self.backButton!.alpha = 0.0

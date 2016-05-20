@@ -10,8 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var screenWidth = Int(UIScreen.mainScreen().bounds.width) //Final
-    var screenHeight = Int(UIScreen.mainScreen().bounds.height) //Final
+    var screenWidth = Double(UIScreen.mainScreen().bounds.width) //Final
+    var screenHeight = Double(UIScreen.mainScreen().bounds.height) //Final
     var ways : WaysToGoBack?
 
     override func viewDidLoad() {

@@ -16,7 +16,7 @@ public class MGraphic : UIView {
     var mPoints: Array<Array<Double>>?
     var count = 0
     
-    public init(screenWidth: Int, y: Int) {
+    public init(screenWidth: Double, y: Double) {
         mPoints = Array<Array<Double>>()
         mPoints?.append(Array<Double>())
         mPoints?.append(Array<Double>())
@@ -51,8 +51,8 @@ public class MGraphic : UIView {
         let realWidth = Double(Double(myWidth) + FileStructure.mLineWidth + 5)
         let halfScreenWidth = Double(screenWidth / 2)
         let halfWidth = Double(realWidth) / 2.0
-        super.init(frame: CGRect(x: Int(halfScreenWidth - halfWidth), y: y, width: Int(realWidth), height: Int(FileStructure.mHeight)))
-        self.initPanes(Int(realWidth), height: Int(FileStructure.mHeight))
+        super.init(frame: CGRect(x: (halfScreenWidth - halfWidth), y: y, width: (realWidth), height: (FileStructure.mHeight)))
+        self.initPanes((realWidth), height: (FileStructure.mHeight))
         self.backgroundColor = UIColor.clearColor()
     }
     
@@ -70,8 +70,8 @@ public class MGraphic : UIView {
         }
     }
     
-    func initPanes(width: Int, height: Int) {
-        horMovingPane = UIView(frame: CGRect(x: Int(FileStructure.mLineWidth), y: 0, width: width, height: height))
+    func initPanes(width: Double, height: Double) {
+        horMovingPane = UIView(frame: CGRect(x: (FileStructure.mLineWidth), y: 0, width: width, height: height))
         horMovingPane!.backgroundColor = UIColor.whiteColor()
         self.addSubview(horMovingPane!)
         vertMovingPane = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))

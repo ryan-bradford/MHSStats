@@ -13,9 +13,9 @@ public class TeamButton : MyButton {
     
     public var teamName : String?
     var superScreen : TeamsScreen?
-    var index : Int?
+    var index : Double?
     
-    public init(x : Int, y : Int, width : Int, height : Int, teamName : String, superScreen : TeamsScreen, index : Int) {
+    public init(x : Double, y : Double, width : Double, height : Double, teamName : String, superScreen : TeamsScreen, index : Double) {
         self.teamName = teamName
         self.index = index
         self.superScreen = superScreen

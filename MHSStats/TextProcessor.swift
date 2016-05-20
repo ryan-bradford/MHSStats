@@ -14,6 +14,7 @@ public class TextProcessor {
     var newRecords = Array<Record>()
     var HTML = ""
     var screen: ScreenDisplay
+    
     public init(screen: ScreenDisplay) {
         self.screen = screen
         self.readTeams()
@@ -27,45 +28,51 @@ public class TextProcessor {
         let task = session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             if (error == nil) {
                 self.HTML = String(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                self.processData()
+                self.onlineProcessData()
                 self.screen.records = self.records
                 self.screen.newRecords = self.newRecords
             }
             else {
                 print("Faulure: %@", error!.localizedDescription);
+                self.offlineProcessData()
+                self.screen.records = self.records
+                self.screen.newRecords = self.newRecords
             }
         })
         task.resume()
     }
     
-    func processData() {
+    func onlineProcessData() {
         var HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
-        if(HTMLSubTexts == Array<String>()) {
-            print("File")
-            do {
-                try HTML = NSString(contentsOfFile: "html.txt", encoding: NSUTF16BigEndianStringEncoding) as String} catch {
-                    
-                    return
-            }
-            HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
-            var teamTexts = HTMLSubTexts[1].characters.split {$0 == "@"}.map { String($0) }
-            for i in 1 ..< teamTexts.count - 1 {
-                records.append(Array<Array<Record>>())
-                processText(teamTexts[i], index: i - 1)
-            }
-        } else {
-            var teamTexts = HTMLSubTexts[1].characters.split {$0 == "@"}.map { String($0) }
-            for i in 1 ..< teamTexts.count - 1 {
-                records.append(Array<Array<Record>>())
-                processText(teamTexts[i], index: i - 1)
-            }
-            var newRecordsTexts = HTMLSubTexts[2].characters.split {$0 == "?"}.map { String($0) }
-            for i in 1 ..< newRecordsTexts.count {
-                newRecords.append(processRecord(newRecordsTexts[i]))
-            }
-            
+        writeText(HTML)
+        var teamTexts = HTMLSubTexts[1].characters.split {$0 == "@"}.map { String($0) }
+        for i in 1 ..< teamTexts.count - 1 {
+            records.append(Array<Array<Record>>())
+            processText(teamTexts[i], index: i - 1)
         }
-
+        var newRecordsTexts = HTMLSubTexts[2].characters.split {$0 == "?"}.map { String($0) }
+        for i in 1 ..< newRecordsTexts.count {
+            newRecords.append(processRecord(newRecordsTexts[i]))
+        }
+    }
+    
+    func offlineProcessData() {
+        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("html.txt")
+            do {
+                HTML = try NSString(contentsOfURL: path, encoding: NSUTF8StringEncoding) as String
+            }
+            catch {
+                print("Error")
+            }
+        }
+        var HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
+        HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
+        var teamTexts = HTMLSubTexts[1].characters.split {$0 == "@"}.map { String($0) }
+        for i in 1 ..< teamTexts.count - 1 {
+            records.append(Array<Array<Record>>())
+            processText(teamTexts[i], index: i - 1)
+        }
     }
     
     func readTeams() {
@@ -97,16 +104,19 @@ public class TextProcessor {
         let year = Int(recordTexts[4])
         let eventName = recordTexts[1]
         let name = recordTexts[0]
-        let theRecord = Record(name : name, mainData: data, dataUnits: dataUnits, year: year!, teamName: teamName, eventName: eventName, categoryName: categoryName)
+        let theRecord = Record(name : name, mainData: data, dataUnits: dataUnits, year: Double(year!), teamName: teamName, eventName: eventName, categoryName: categoryName)
         return theRecord
     }
     
     func writeText(text: String) {
-        do {
-            try text.writeToFile("html.txt", atomically: false, encoding: NSUTF16BigEndianStringEncoding)}
-            
-        catch {
-            
+        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("html.txt")
+            do {
+                try text.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
+            }
+            catch {
+                return
+            }
         }
     }
 }

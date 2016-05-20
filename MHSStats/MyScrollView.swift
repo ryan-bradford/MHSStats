@@ -13,6 +13,7 @@ import UIKit
 public class MyScrollView : UIScrollView {
     
     var superScreen : ScreenDisplay?
+    var visible: Bool?
 
     public init(frame: CGRect, superScreen: ScreenDisplay) {
         self.superScreen = superScreen

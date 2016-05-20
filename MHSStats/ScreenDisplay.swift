@@ -14,14 +14,16 @@ public class ScreenDisplay : UIView {
     var teamsScreen : TeamsScreen? //Screen That Displays the Teams
     var categoryScreens : Array<CategoryScreen>? //Screen That Displays the Categories for a Team
     var recordsScreens : Array<Array<RecordsScreen>>? //Screen That Displays the Records for a Category
+    var statsScreen : StatsScreen?
     var records : Array<Array<Array<Record>>>?
-    var screenWidth : Int?
+    var screenWidth : Double?
     var topBar: TopBar?
-    var teamIDDisplayed: Int?
+    var teamIDDisplayed: Double?
     var newRecords: Array<Record>?
-    var categoryIDDisplayed: Int?
+    var categoryIDDisplayed: Double?
+    var statsScreenDisplayed = false
     
-    public init(x : Int, y : Int, width : Int, height : Int) {
+    public init(x : Double, y : Double, width : Double, height : Double) {
         self.screenWidth = width
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
         topBar = TopBar(width: screenWidth!, superScreen: self)
@@ -32,20 +34,41 @@ public class ScreenDisplay : UIView {
         super.init(coder: aDecoder)!
     }
     
-    func transitionFromTeamsToCategories(team : Int) {
+    func transitionToStatsScreen() {
         topBar?.slideOnBackButton(1.0)
-        let xPosition = categoryScreens![team].frame.origin.x - CGFloat(screenWidth!)
-        let yPosition = categoryScreens![team].frame.origin.y
+        let xPosition = statsScreen!.frame.origin.x - CGFloat(screenWidth!)
+        let yPosition = statsScreen!.frame.origin.y
         
-        let height = categoryScreens![team].frame.size.height
-        let width = categoryScreens![team].frame.size.width
+        let height = statsScreen!.frame.size.height
+        let width = statsScreen!.frame.size.width
         
-        categoryScreens![team].setVisible()
+        statsScreenDisplayed = true
         
         UIView.animateWithDuration(1.0, animations: {
-            self.categoryScreens![team].frame = CGRectMake(xPosition, yPosition, width, height)
+            self.statsScreen!.frame = CGRectMake(xPosition, yPosition, width, height)
+        }, completion: {
+            (value: Bool) in
+            self.statsScreen?.showDisplay()
         })
-        teamIDDisplayed = team
+    }
+    
+    func transitionFromTeamsToCategories(team : Int) {
+        if self.recordsScreens![team][0].buttons[0].record?.teamName == "Stats" {
+            self.transitionToStatsScreen()
+        } else {
+            topBar?.slideOnBackButton(1.0)
+            let xPosition = categoryScreens![team].frame.origin.x - CGFloat(screenWidth!)
+            let yPosition = categoryScreens![team].frame.origin.y
+            
+            let height = categoryScreens![team].frame.size.height
+            let width = categoryScreens![team].frame.size.width
+            
+            categoryScreens![team].setVisible()
+            UIView.animateWithDuration(1.0, animations: {
+                self.categoryScreens![team].frame = CGRectMake(xPosition, yPosition, width, height)
+            })
+            teamIDDisplayed = Double(team)
+        }
         
     }
     
@@ -62,22 +85,27 @@ public class ScreenDisplay : UIView {
             self.recordsScreens![team][category].frame = CGRectMake(xPosition, yPosition, width, height)
         })
         
-        teamIDDisplayed = team
-        categoryIDDisplayed = category
+        teamIDDisplayed = Double(team)
+        categoryIDDisplayed = Double(category)
     }
     
     func transitionBackwards(speed: Double) {
         var currentlyDisplayed: MyScrollView?
-        if(teamIDDisplayed == nil && categoryIDDisplayed == nil) {
+        if(statsScreenDisplayed) {
+            currentlyDisplayed = statsScreen
+            statsScreenDisplayed = false
+            topBar?.slideOffBackButton(speed)
+            teamsScreen!.setVisible()
+        } else if(teamIDDisplayed == nil && categoryIDDisplayed == nil) {
             return
         } else if(categoryIDDisplayed == nil) {
             topBar?.slideOffBackButton(speed)
-            currentlyDisplayed = categoryScreens![teamIDDisplayed!]
+            currentlyDisplayed = categoryScreens![Int(teamIDDisplayed!)]
             teamsScreen!.setVisible()
             teamIDDisplayed = nil
         } else {
-            currentlyDisplayed = recordsScreens![teamIDDisplayed!][categoryIDDisplayed!]
-            categoryScreens![teamIDDisplayed!].setVisible()
+            currentlyDisplayed = recordsScreens![Int(teamIDDisplayed!)][Int(categoryIDDisplayed!)]
+            categoryScreens![Int(teamIDDisplayed!)].setVisible()
             categoryIDDisplayed = nil
         }
         
@@ -99,7 +127,7 @@ public class ScreenDisplay : UIView {
         }
     }
     
-    func displayRecords(x : Int, y : Int, width : Int, height : Int) {
+    func displayRecords(x : Double, y : Double, width : Double, height : Double) {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             while(self.records == nil) {
@@ -111,11 +139,13 @@ public class ScreenDisplay : UIView {
                 self.recordsScreens = Array<Array<RecordsScreen>>()
                 for i in 0 ..< self.records!.count {
                     self.recordsScreens!.append(Array<RecordsScreen>())
-                    self.categoryScreens!.append(CategoryScreen(x: width, y: pushDown, width: width, height: height, records: self.records![i], teamID: i, superScreen: self))
+                    self.categoryScreens!.append(CategoryScreen(x: width, y: pushDown, width: width, height: height, records: self.records![i], teamID: Double(i), superScreen: self))
                     for x in 0 ..< self.records![i].count {
                         self.recordsScreens![i].append(RecordsScreen(x: width, y: pushDown, width: width, height: height, records: self.records![i][x], superScreen: self))
                     }
                 }
+                self.statsScreen = StatsScreen(x: width, y: pushDown, screenWidth: width, screenHeight: height, records: self.records!)
+                self.statsScreen!.alpha = 1.0
                 self.teamsScreen = TeamsScreen(x: 0, y: pushDown, width: width, height: height, records: self.records!, superScreen: self)
                 self.teamsScreen!.setVisible()
                 self.teamsScreen!.alpha = 0.0
@@ -135,6 +165,7 @@ public class ScreenDisplay : UIView {
                             }
                         }
                 })
+                self.addSubview(self.statsScreen!)
                 
             }
         }

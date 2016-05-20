@@ -12,12 +12,11 @@ import UIKit
 public class CategoryScreen : MyScrollView {
     
     var buttons = Array<CategoryButton>()
-    var teamID : Int?
-    var visible: Bool?
+    var teamID : Double?
 
-    public init(x : Int, y : Int, width : Int, height : Int, records : Array<Array<Record>>, teamID : Int, superScreen : ScreenDisplay) {
+    public init(x : Double, y : Double, width : Double, height : Double, records : Array<Array<Record>>, teamID : Double, superScreen : ScreenDisplay) {
         super.init(frame: CGRect(x: x, y: y, width: width, height: height), superScreen: superScreen)
-        let neededHeight = Int((Double(height) * 0.1 * Double((records.count + 2))))
+        let neededHeight = (((height) * 0.1 * ((Double(records.count) + 2.0))))
         self.contentSize = (CGSizeMake(CGFloat(width), CGFloat(neededHeight)))
         self.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.teamID = teamID
@@ -30,17 +29,17 @@ public class CategoryScreen : MyScrollView {
         super.init(coder: aDecoder)
     }
     
-    func addCategories(records : Array<Array<Record>>, screenWidth : Int, screenHeight : Int) {
+    func addCategories(records : Array<Array<Record>>, screenWidth : Double, screenHeight : Double) {
         for i in 0 ..< records.count - 1 {
-            let currentButton = CategoryButton(x: 0, y: Int(Double(screenHeight) * 0.1 * Double(i)), width: screenWidth, height: Int(Double(screenHeight) * 0.1), categoryName: records[Int(i)][0].categoryName, superScreen: self, teamID: teamID!, categoryID: Int(i))
+            let currentButton = CategoryButton(x: 0, y: screenHeight * 0.1 * Double(i), width: screenWidth, height: screenHeight * 0.1, categoryName: records[Int(i)][0].categoryName, superScreen: self, teamID: teamID!, categoryID: Double(i))
             buttons.append(currentButton)
             self.addSubview(buttons[Int(i)])
         }
     }
     
-    func pressedBy(teamID : Int, categoryID : Int) {
+    func pressedBy(teamID : Double, categoryID : Double) {
         if(visible!) {
-            superScreen!.transitionFromCategoriesToRecords(teamID, category: categoryID)
+            superScreen!.transitionFromCategoriesToRecords(Int(teamID), category: Int(categoryID))
         }
         visible = false
     }

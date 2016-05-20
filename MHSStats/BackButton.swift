@@ -12,12 +12,12 @@ import UIKit
 public class BackButton : UIButton {
     
     var superScreen: ScreenDisplay?
-    var width: Int?
-    var height: Int?
+    var width: Double?
+    var height: Double?
     var backButton: BackButton?
-    var circleDiameter: Int?
+    var circleDiameter: Double?
 
-    public init(x : Int, y : Int, width : Int, height : Int, superScreen: ScreenDisplay) {
+    public init(x : Double, y : Double, width : Double, height : Double, superScreen: ScreenDisplay) {
         self.superScreen = superScreen
         self.width = width
         self.height = height
@@ -43,13 +43,13 @@ public class BackButton : UIButton {
         let middleWidth = FileStructure.arrowMiddleWidth
         self.layer.addSublayer(leftArrowShape)
         let path = UIBezierPath()
-        path.moveToPoint(CGPointMake(CGFloat(0), CGFloat(FileStructure.circleDiameter / 2)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(-arrowHeight / 2 + FileStructure.circleDiameter / 2)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(-middleWidth / 2 + FileStructure.circleDiameter / 2)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(-middleWidth / 2 + FileStructure.circleDiameter / 2)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth), CGFloat(middleWidth / 2 + FileStructure.circleDiameter / 2)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(middleWidth / 2 + FileStructure.circleDiameter / 2)))
-        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2), CGFloat(arrowHeight / 2 + FileStructure.circleDiameter / 2)))
+        path.moveToPoint(CGPointMake(CGFloat(13), CGFloat(FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2 + 13), CGFloat(-arrowHeight / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2 + 13), CGFloat(-middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth + 13), CGFloat(-middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth + 13), CGFloat(middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2 + 13), CGFloat(middleWidth / 2 + FileStructure.circleDiameter / 2)))
+        path.addLineToPoint(CGPointMake(CGFloat(arrowWidth/2 + 13), CGFloat(arrowHeight / 2 + FileStructure.circleDiameter / 2)))
         path.closePath()
         leftArrowShape.path = path.CGPath
     }
@@ -59,7 +59,7 @@ public class BackButton : UIButton {
         let color = UIColor.grayColor().CGColor
         circle.fillColor = color
         self.layer.addSublayer(circle)
-        let box = CGRectMake(-10, CGFloat(0), CGFloat(FileStructure.circleDiameter), CGFloat(FileStructure.circleDiameter))
+        let box = CGRectMake(3, CGFloat(3), CGFloat(FileStructure.circleDiameter), CGFloat(FileStructure.circleDiameter))
         let ovalPath = UIBezierPath(ovalInRect : box)
         ovalPath.closePath()
         circle.path = ovalPath.CGPath
@@ -70,7 +70,7 @@ public class BackButton : UIButton {
         let color = FileStructure.MHSColor.CGColor
         circle.fillColor = color
         self.layer.addSublayer(circle)
-        let box = CGRectMake(-13, CGFloat(-3), CGFloat(FileStructure.circleDiameter + 6), CGFloat(FileStructure.circleDiameter + 6))
+        let box = CGRectMake(0, CGFloat(0), CGFloat(FileStructure.circleDiameter + 6), CGFloat(FileStructure.circleDiameter + 6))
         let ovalPath = UIBezierPath(ovalInRect : box)
         ovalPath.closePath()
         circle.path = ovalPath.CGPath

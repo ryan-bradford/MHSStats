@@ -1,39 +1,15 @@
 //
-//  MyButton.swift
+//  UIMethods.swift
 //  MHSStats
 //
-//  Created by Ryan on 3/16/16.
+//  Created by Ryan on 5/19/16.
 //  Copyright © 2016 ryanb3. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-public class MyButton: UIButton {
-    
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required public init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-    }
-    
-    override public func drawRect(rect: CGRect) {
-        let path = UIBezierPath()
-        let width = Double(self.frame.width)
-        let gap = FileStructure.dashedLineGap
-        let remainderInt = Double(width) / ((gap + FileStructure.lineWidth)) + 1
-        var addedWidth = remainderInt
-        while(addedWidth < width) {
-            path.moveToPoint(CGPointMake(CGFloat(addedWidth), CGFloat(0)))
-            path.addLineToPoint(CGPointMake(CGFloat(Double(addedWidth) + FileStructure.lineWidth), CGFloat(0)))
-            path.closePath()
-            UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5).set()
-            path.stroke()
-            addedWidth += gap + FileStructure.lineWidth
-        }
-    }
+public class UIMethods: UIView {
     
     func drawCenteredTextInRect(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, toDraw: String, fontSize: CGFloat) -> CGFloat {
         let message: NSMutableAttributedString = NSMutableAttributedString(string: toDraw)
@@ -62,7 +38,7 @@ public class MyButton: UIButton {
         let fieldFont = UIFont(name: "Helvetica Neue", size: CGFloat(fontSize))
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.alignment = NSTextAlignment.Center
-
+        
         let attributes: NSDictionary = [
             NSForegroundColorAttributeName: fieldColor,
             NSParagraphStyleAttributeName: paraStyle,

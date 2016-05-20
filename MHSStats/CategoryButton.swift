@@ -13,10 +13,10 @@ public class CategoryButton : MyButton {
     
     public var categoryName : String?
     var superScreen : CategoryScreen?
-    var teamID : Int?
-    var categoryID : Int?
+    var teamID : Double?
+    var categoryID : Double?
     
-    public init(x : Int, y : Int, width : Int, height : Int, categoryName : String, superScreen: CategoryScreen, teamID : Int, categoryID : Int) {
+    public init(x : Double, y : Double, width : Double, height : Double, categoryName : String, superScreen: CategoryScreen, teamID : Double, categoryID : Double) {
         self.categoryName = categoryName
         self.superScreen = superScreen
         self.teamID = teamID

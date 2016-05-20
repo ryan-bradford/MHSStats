@@ -12,11 +12,11 @@ import UIKit
 public class NewRecordButton: MyButton {
     
     var circle = CAShapeLayer()
-    var diameter: Int
+    var diameter: Double
     var screen: ScreenDisplay?
     var record: Record?
     
-    init(x: Int, y: Int, screen: ScreenDisplay, record: Record) {
+    init(x: Double, y: Double, screen: ScreenDisplay, record: Record) {
         self.screen = screen
         self.record = record
         self.diameter = FileStructure.newRecordsBarHeight - FileStructure.newRecordButtonGap

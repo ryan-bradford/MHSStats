@@ -12,16 +12,15 @@ import UIKit
 public class TeamsScreen : MyScrollView {
     
     var buttons = Array<TeamButton>()
-    var visible: Bool?
     var newRecordsBar: NewRecordsBar?
 
-    init(x : Int, y : Int, width : Int, height : Int, records : Array<Array<Array<Record>>>, superScreen : ScreenDisplay) {
+    init(x : Double, y : Double, width : Double, height : Double, records : Array<Array<Array<Record>>>, superScreen : ScreenDisplay) {
         super.init(frame: CGRect(x: x, y: y, width: width, height: height), superScreen: superScreen)
         self.superScreen = superScreen
         self.newRecordsBar = NewRecordsBar(screenWidth: width, newRecords: superScreen.newRecords!, screen:superScreen)
         self.addSubview(self.newRecordsBar!)
         self.newRecordsBar!.alpha = 0.0
-        let neededHeight = Int((Double(height) * 0.1 * Double((records.count + 2)))) + FileStructure.newRecordsBarHeight
+        let neededHeight = (((height) * 0.1 * Double(Double(records.count + 2)))) + FileStructure.newRecordsBarHeight
         self.contentSize = (CGSizeMake(CGFloat(width), CGFloat(neededHeight)))
         self.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.addTeams(records, screenWidth : width, screenHeight : height)
@@ -32,17 +31,18 @@ public class TeamsScreen : MyScrollView {
         super.init(coder: aDecoder)
     }
     
-    func addTeams(records : Array<Array<Array<Record>>>, screenWidth : Int, screenHeight : Int) {
+    func addTeams(records : Array<Array<Array<Record>>>, screenWidth : Double, screenHeight : Double) {
         for i in 0 ..< records.count {
-            let currentButton = TeamButton(x: 0, y: FileStructure.newRecordsBarHeight +  Int(Double((screenHeight)) * 0.1 * Double(i)), width: screenWidth, height: Int(Double(screenHeight) * 0.1), teamName: records[Int(i)][0][0].teamName, superScreen : self, index : Int(i))
+            let y = FileStructure.newRecordsBarHeight + screenHeight * 0.1 * Double(i)
+            let currentButton = TeamButton(x: 0, y: y, width: screenWidth, height: (Double(screenHeight) * 0.1), teamName: records[Int(i)][0][0].teamName, superScreen : self, index : Double(i))
             buttons.append(currentButton)
             self.addSubview(buttons[Int(i)])
         }
     }
     
-    func pressedBy(categoryIndex : Int) {
+    func pressedBy(categoryIndex : Double) {
         if(visible!) {
-            superScreen!.transitionFromTeamsToCategories(categoryIndex)
+            superScreen!.transitionFromTeamsToCategories(Int(categoryIndex))
         }
         visible = false
     }
