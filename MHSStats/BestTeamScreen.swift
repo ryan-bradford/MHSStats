@@ -26,7 +26,7 @@ public class BestTeamScreen: UIMethods {
         self.records = records
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
         self.backgroundColor = UIColor.clearColor()
-        self.genCoverScreen()
+        //self.genCoverScreen()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -42,7 +42,7 @@ public class BestTeamScreen: UIMethods {
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components(.Year, fromDate: date)
-        var year = 0;
+        var year = 0
         year = components.year - 1
         var bestTeamID = 0
         var greatestSum = 0
@@ -61,7 +61,7 @@ public class BestTeamScreen: UIMethods {
             }
         }
         if(greatestSum == 0) {
-            return "Boys Cross Country"
+            return "No Records Set"
         }
         return records![bestTeamID][0][0].teamName
     }

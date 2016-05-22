@@ -20,8 +20,9 @@ public class StatsScreen : MyScrollView {
     let boxWidthCount = 2.0
     var recordsGraph: RecordsGraph?
     var bestTeamScreen: BestTeamScreen?
-    var mostRecTeamScreen: MostRecordsDisplay?
+    var bestYearScreen: BestYearScreen?
     var bestPlayerScreen: BestPlayerDisplay?
+    var bestTypeScreen: BestTypeScreen?
     var stuffShown = false
     var toDrawGraph = true
     
@@ -34,13 +35,13 @@ public class StatsScreen : MyScrollView {
     }
     
     override public func drawRect(rect: CGRect) {
-        drawBoxes()
+        boxWidth = width! / boxWidthCount
+        boxHeight = (height!-FileStructure.topBarHeight) / boxHeightCount
+        //drawBoxes()
         displayStats()
     }
     
     func drawBoxes() {
-        boxWidth = width! / boxWidthCount
-        boxHeight = (height!-FileStructure.topBarHeight) / boxHeightCount
         FileStructure.MHSColor.set()
         var path: UIBezierPath
         for i in 0 ..< Int(boxHeightCount) + 1 {
@@ -71,11 +72,14 @@ public class StatsScreen : MyScrollView {
         bestTeamScreen = BestTeamScreen(x: 3, y: boxHeight! + 5, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
         self.addSubview(bestTeamScreen!)
         
-        mostRecTeamScreen = MostRecordsDisplay(x: 3 + boxWidth!, y: boxHeight! + 5, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
-        self.addSubview(mostRecTeamScreen!)
+        bestYearScreen = BestYearScreen(x: 3 + boxWidth!, y: boxHeight! + 5, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
+        self.addSubview(bestYearScreen!)
         
         bestPlayerScreen = BestPlayerDisplay(x: 3, y: 2 * boxHeight! + 10, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
         self.addSubview(bestPlayerScreen!)
+        
+        bestTypeScreen = BestTypeScreen(x: 3 + boxWidth!, y: 2 * boxHeight! + 10, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
+        self.addSubview(bestTypeScreen!)
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -87,6 +91,8 @@ public class StatsScreen : MyScrollView {
             stuffShown = true
             recordsGraph!.displayGraph(1)
             bestTeamScreen!.displayBestTeam(1)
+            bestPlayerScreen!.displayBestTeam(1)
+            bestYearScreen!.displayBestTeam(1)
         }
     }
     

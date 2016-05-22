@@ -21,17 +21,22 @@ class ViewController: UIViewController {
     }
     
     func initStage1() {
-        let screen = ScreenDisplay(x: 0, y: screenHeight / 2 - FileStructure.topBarHeight / 2, width: screenWidth, height : screenHeight)
+        NSURLCache.sharedURLCache().removeAllCachedResponses()
+        let screen = ScreenDisplay(x: 0, y: screenHeight / 2 - FileStructure.topBarHeight / 2, width: screenWidth, height : screenHeight, mDraw: false)
         let redScreen = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
         redScreen.backgroundColor = FileStructure.MHSColor
+        self.view.addSubview(screen)
         self.view.addSubview(redScreen)
         screen.loadAndProcessRecords()
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(1 * FileStructure.introScale, animations: {
             redScreen.frame = CGRectMake(0, CGFloat(self.screenHeight + 10), CGFloat(self.screenWidth), CGFloat(self.screenHeight))
             }, completion: {
                 (value: Bool) in
-                self.view.addSubview(screen)
-                screen.topBar!.mGraphic!.showM(self, screen: screen)
+                if(false) {
+                    screen.topBar!.mGraphic!.showM(self, screen: screen)
+                } else {
+                    self.initStage2(screen)
+                }
         })
     }
     
@@ -42,7 +47,7 @@ class ViewController: UIViewController {
         let vertHeight = screen.frame.size.height
         let vertWidth = screen.frame.size.width
         
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(1 * FileStructure.introScale, animations: {
             screen.frame = CGRectMake(xVertPosition, yVertPosition, vertWidth, vertHeight)
             }, completion: {
                 (value: Bool) in
@@ -54,7 +59,6 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
 
 }
 

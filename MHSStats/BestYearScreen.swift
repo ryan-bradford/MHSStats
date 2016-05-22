@@ -9,14 +9,15 @@
 import Foundation
 import UIKit
 
-public class MostRecordsDisplay: UIMethods {
+public class BestYearScreen: UIMethods {
  
     var records: Array<Array<Array<Record>>>?
     var x: Double?
     var y: Double?
     var width: Double?
     var height: Double?
-    
+    var coverScreen: UIView?
+
     init(x: Double, y: Double, width: Double, height: Double, records: Array<Array<Array<Record>>>){
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
         self.records = records
@@ -25,6 +26,7 @@ public class MostRecordsDisplay: UIMethods {
         self.width = width
         self.height = height
         self.backgroundColor = UIColor.clearColor()
+        //self.genCoverScreen()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -57,5 +59,18 @@ public class MostRecordsDisplay: UIMethods {
         return biggestID
     }
     
+    func genCoverScreen() {
+        coverScreen = UIView(frame: CGRect(x: 0, y: 0, width: width!, height: height!))
+        coverScreen?.backgroundColor = UIColor.whiteColor()
+        self.addSubview(coverScreen!)
+    }
+    
+    func displayBestTeam(speed: Double) {
+        let xPosition = self.coverScreen!.frame.origin.x
+        let yPosition = self.coverScreen!.frame.origin.y
+        UIView.animateWithDuration(speed, animations: {
+            self.coverScreen!.frame = CGRectMake(xPosition, yPosition, 0, 0)
+        })
+    }
     
  }

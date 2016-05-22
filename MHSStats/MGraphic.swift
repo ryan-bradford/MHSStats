@@ -16,7 +16,7 @@ public class MGraphic : UIView {
     var mPoints: Array<Array<Double>>?
     var count = 0
     
-    public init(screenWidth: Double, y: Double) {
+    public init(screenWidth: Double, y: Double, mDraw: Bool) {
         mPoints = Array<Array<Double>>()
         mPoints?.append(Array<Double>())
         mPoints?.append(Array<Double>())
@@ -52,7 +52,9 @@ public class MGraphic : UIView {
         let halfScreenWidth = Double(screenWidth / 2)
         let halfWidth = Double(realWidth) / 2.0
         super.init(frame: CGRect(x: (halfScreenWidth - halfWidth), y: y, width: (realWidth), height: (FileStructure.mHeight)))
-        self.initPanes((realWidth), height: (FileStructure.mHeight))
+        if(mDraw) {
+            self.initPanes((realWidth), height: (FileStructure.mHeight))
+        }
         self.backgroundColor = UIColor.clearColor()
     }
     
@@ -90,7 +92,7 @@ public class MGraphic : UIView {
         let vertHeight = vertMovingPane!.frame.size.height
         let vertWidth = vertMovingPane!.frame.size.width
         
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(0.5 * FileStructure.introScale, animations: {
             self.vertMovingPane!.frame = CGRectMake(xVertPosition, yVertPosition, vertWidth, vertHeight)
             }, completion: {
                 (value: Bool) in
@@ -106,7 +108,7 @@ public class MGraphic : UIView {
         let horHeight = horMovingPane!.frame.size.height
         let horWidth = horMovingPane!.frame.size.width
         
-        UIView.animateWithDuration(1.0, animations: {
+        UIView.animateWithDuration(1.0 * FileStructure.introScale, animations: {
             self.horMovingPane!.frame = CGRectMake(xHorPosition - 2.5 * CGFloat(FileStructure.mLineWidth), yHorPosition, horWidth, horHeight)
         }, completion: {
                 (value: Bool) in
@@ -122,7 +124,7 @@ public class MGraphic : UIView {
         let vertHeight = vertMovingPane!.frame.size.height
         let vertWidth = vertMovingPane!.frame.size.width
         
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(0.5 * FileStructure.introScale, animations: {
             self.vertMovingPane!.frame = CGRectMake(xVertPosition, yVertPosition, vertWidth, vertHeight)
             }, completion: {
                 (value: Bool) in

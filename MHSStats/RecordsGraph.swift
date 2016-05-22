@@ -27,6 +27,7 @@ public class RecordsGraph: UIMethods {
         super.init(frame: CGRect(x: x, y: y, width: width + horTextSpace, height: height + 2 * vertTextSpace))
         self.backgroundColor = UIColor.clearColor()
         //self.alpha = 0.0
+        //self.genCoverScreen()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -35,7 +36,6 @@ public class RecordsGraph: UIMethods {
     
     override public func drawRect(rect: CGRect) {
         self.genGraph(width!, height: height!)
-        self.genCoverScreen()
         (self.drawTextWithNoBox(-CGFloat(width!/2) + (3 * CGFloat(horTextSpace) / 2), y: CGFloat(height!) + (5 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(xRanges![1])), fontSize: 12))
         (self.drawTextWithNoBox(CGFloat(width!/2), y: CGFloat(height!) + (5 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(xRanges![1])), fontSize: 12))
         (self.drawTextWithNoBox((-CGFloat(width!/2)) + CGFloat(horTextSpace / 2), y: (CGFloat(vertTextSpace)), width: CGFloat(width!), toDraw: String(Int(yRanges![0])), fontSize: 12))

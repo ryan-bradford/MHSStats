@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class BestTypeScreen: UIMethods {
+public class BestPlayerDisplay: UIMethods {
     
     var records: Array<Array<Array<Record>>>?
     var x: Double?
@@ -17,7 +17,7 @@ public class BestTypeScreen: UIMethods {
     var width: Double?
     var height: Double?
     var coverScreen: UIView?
-
+    
     init(x: Double, y: Double, width: Double, height: Double, records: Array<Array<Array<Record>>>){
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
         self.records = records
@@ -34,33 +34,40 @@ public class BestTypeScreen: UIMethods {
     }
     
     override public func drawRect(rect: CGRect) {
-        self.drawCenteredTextInRect(0, y: 0, width: CGFloat(width!), height: CGFloat(height!/2), toDraw: "Best Type of Event:", fontSize: 20)
-        self.drawCenteredTextInRect(0, y: CGFloat(height!/2), width: CGFloat(width!), height: CGFloat(height!/2), toDraw: String(getBestType()), fontSize: 14)
+        self.drawCenteredTextInRect(0, y: 0, width: CGFloat(width!), height: CGFloat(height!/2), toDraw: "Best Player:", fontSize: 20)
+        self.drawCenteredTextInRect(0, y: CGFloat(height!/2), width: CGFloat(width!), height: CGFloat(height!/2), toDraw: String(getBestPlayer()), fontSize: 14)
     }
     
-    func getBestType() -> String {
+    func getBestPlayer() -> String {
         
-        var allTypes = Array<String>()
+        var allNames = Array<String>()
         for var teams in records! {
             for var cat in teams {
                 for var record in cat {
-                    allTypes.append(record.categoryName)
+                    if(record.personName.containsString("_")) {
+                        let parts = record.personName.characters.split{$0 == "_"}.map(String.init)
+                        for var x in parts {
+                            allNames.append(x)
+                        }
+                    } else if(record.personName != "The Creators") {
+                        allNames.append(record.personName)
+                    }
                 }
             }
         }
-        var singleTypes = Array<String>()
-        for var x in allTypes {
-            if(!singleTypes.contains(x)) {
-                singleTypes.append(x)
+        var singleNames = Array<String>()
+        for var x in allNames {
+            if(!singleNames.contains(x)) {
+                singleNames.append(x)
             }
         }
         var totals = Array<Int>()
-        for x in 0 ..< singleTypes.count {
+        for x in 0 ..< singleNames.count {
             totals.append(x)
         }
-        for x in 0 ..< singleTypes.count {
-            for var type in allTypes {
-                if(type == singleTypes[x]) {
+        for x in 0 ..< singleNames.count {
+            for var name in allNames {
+                if(name == singleNames[x]) {
                     totals[x] += 1
                 }
             }
@@ -71,7 +78,7 @@ public class BestTypeScreen: UIMethods {
                 biggestID = x
             }
         }
-        return singleTypes[Int(biggestID)]
+        return singleNames[Int(biggestID)]
     }
     
     func genCoverScreen() {

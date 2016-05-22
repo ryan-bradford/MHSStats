@@ -37,8 +37,7 @@ public class RecordButton : MyButton {
     
     func drawText() -> Double {
         var pushDown = drawTextWithNoBox(0, y: 0, width: self.frame.width, toDraw: record!.eventName, fontSize: 20)
-        var toDisplay = record!.personName.copy() as! String
-        toDisplay = toDisplay.stringByReplacingOccurrencesOfString("_", withString: " ")
+        let toDisplay = record!.getStripedName()
         let heightOfLast = drawTextWithNoBox(0, y: pushDown, width: self.frame.width / 2, toDraw: toDisplay, fontSize: 15)
         var shiftSideways = self.frame.width / 2
         var widthToDrawIn = self.frame.width / 2

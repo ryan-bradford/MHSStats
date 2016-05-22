@@ -23,10 +23,10 @@ public class ScreenDisplay : UIView {
     var categoryIDDisplayed: Double?
     var statsScreenDisplayed = false
     
-    public init(x : Double, y : Double, width : Double, height : Double) {
+    public init(x : Double, y : Double, width : Double, height : Double, mDraw: Bool) {
         self.screenWidth = width
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
-        topBar = TopBar(width: screenWidth!, superScreen: self)
+        topBar = TopBar(width: screenWidth!, superScreen: self, mDraw: mDraw)
         addSubview(topBar!)
     }
     
@@ -44,11 +44,11 @@ public class ScreenDisplay : UIView {
         
         statsScreenDisplayed = true
         
+        //self.statsScreen?.showDisplay()
         UIView.animateWithDuration(1.0, animations: {
             self.statsScreen!.frame = CGRectMake(xPosition, yPosition, width, height)
-        }, completion: {
+            }, completion: {
             (value: Bool) in
-            self.statsScreen?.showDisplay()
         })
     }
     

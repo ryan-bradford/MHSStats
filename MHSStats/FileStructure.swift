@@ -11,6 +11,8 @@ import UIKit
 
 public struct FileStructure {
 
+    public static let introScale = 0.75
+    
     public static let circleDiameter = 75.0
     public static let arrowWidth = circleDiameter - 20.0
     public static let arrowHeight = 35.0
@@ -18,7 +20,7 @@ public struct FileStructure {
     public static let topBarHeight = 100.0
     public static let newRecordsBarHeight = 100.0
     public static let newRecordButtonGap = 10.0
-    
+        
     public static let mHeight = 70.0
     public static let mWidth = 50.0
     public static let mLineWidth = 10.0

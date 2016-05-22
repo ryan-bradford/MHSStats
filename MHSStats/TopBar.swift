@@ -16,11 +16,11 @@ public class TopBar: UIView {
     var screenWidth: Double?
     var mGraphic: MGraphic?
     
-    public init(width : Double, superScreen: ScreenDisplay) {
+    public init(width : Double, superScreen: ScreenDisplay, mDraw: Bool) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: FileStructure.topBarHeight))
         self.superScreen = superScreen
         self.screenWidth = width
-        mGraphic = MGraphic(screenWidth: (width), y: (FileStructure.standardOffset))
+        mGraphic = MGraphic(screenWidth: (width), y: (FileStructure.standardOffset), mDraw: mDraw)
         self.addSubview(mGraphic!)
         initButton(Double(mGraphic!.frame.height))
     }

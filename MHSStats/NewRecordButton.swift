@@ -45,7 +45,16 @@ public class NewRecordButton: MyButton {
     }
     
     func drawText() {
-        self.drawCenteredTextInRect(0, y: 0, width: CGFloat(diameter), height: CGFloat(diameter), toDraw: self.record!.getQuickName(), fontSize: 25)
+        print(self.record!.getQuickName())
+        let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFontOfSize(25), toGet: self.record!.getQuickName())
+        let standardHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFontOfSize(25), toGet: "H")
+        if(textHeight > standardHeight) {
+            let shiftDown = textHeight/2 - CGFloat(diameter) / 8
+            self.drawCenteredTextInRect(0, y: shiftDown, width: CGFloat(diameter), height: CGFloat(diameter), toDraw: self.record!.getQuickName(), fontSize: 15)
+        } else {
+            let shiftDown = 1 * (textHeight/2 - CGFloat(diameter)) / 16
+            self.drawCenteredTextInRect(0, y: shiftDown, width: CGFloat(diameter), height: CGFloat(diameter), toDraw: self.record!.getQuickName(), fontSize: 25)
+        }
     }
     
     override public func drawRect(rect: CGRect) {

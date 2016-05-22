@@ -30,12 +30,22 @@ public class Record {
         self.teamName = teamName
     }
     
+    func getStripedName() -> String {
+        var toDisplay = self.personName.copy() as! String
+        toDisplay = toDisplay.stringByReplacingOccurrencesOfString("_", withString: " ")
+        return toDisplay
+    }
+    
     func getQuickName() -> String {
-        var nameParts = personName.characters.split {$0 == " "}.map { String($0) }
+        var totalParts = personName.characters.split {$0 == "_"}.map { String($0) }
         var quickName = ""
-        for i in 0 ..< nameParts.count {
-            quickName.append((nameParts[i].characters.first! as Character))
-            quickName.append("." as Character)
+        for var x in totalParts {
+            var nameParts = x.characters.split {$0 == " "}.map { String($0) }
+            for i in 0 ..< nameParts.count {
+                quickName.append((nameParts[i].characters.first! as Character))
+                quickName.append("." as Character)
+            }
+            quickName.append(" " as Character)
         }
         return quickName
     }

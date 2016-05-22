@@ -59,6 +59,11 @@ public class TextProcessor {
     func offlineProcessData() {
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("html.txt")
+            let filePath = path.URLByAppendingPathComponent("nameOfFileHere").path!
+            let fileManager = NSFileManager.defaultManager()
+            if fileManager.fileExistsAtPath(filePath) {
+                
+            }
             do {
                 HTML = try NSString(contentsOfURL: path, encoding: NSUTF8StringEncoding) as String
             }
