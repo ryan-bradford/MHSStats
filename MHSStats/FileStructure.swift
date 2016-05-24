@@ -20,7 +20,9 @@ public struct FileStructure {
     public static let topBarHeight = 100.0
     public static let newRecordsBarHeight = 100.0
     public static let newRecordButtonGap = 10.0
-        
+    
+    public static let acceptableGraphRange = 20.0
+    
     public static let mHeight = 70.0
     public static let mWidth = 50.0
     public static let mLineWidth = 10.0

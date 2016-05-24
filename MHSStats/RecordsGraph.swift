@@ -37,7 +37,7 @@ public class RecordsGraph: UIMethods {
     override public func drawRect(rect: CGRect) {
         self.genGraph(width!, height: height!)
         (self.drawTextWithNoBox(-CGFloat(width!/2) + (3 * CGFloat(horTextSpace) / 2), y: CGFloat(height!) + (5 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(xRanges![1])), fontSize: 12))
-        (self.drawTextWithNoBox(CGFloat(width!/2), y: CGFloat(height!) + (5 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(xRanges![1])), fontSize: 12))
+        (self.drawTextWithNoBox(CGFloat(width!/2), y: CGFloat(height!) + (5 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(xRanges![0])), fontSize: 12))
         (self.drawTextWithNoBox((-CGFloat(width!/2)) + CGFloat(horTextSpace / 2), y: (CGFloat(vertTextSpace)), width: CGFloat(width!), toDraw: String(Int(yRanges![0])), fontSize: 12))
         (self.drawTextWithNoBox((-CGFloat(width!/2)) + CGFloat(horTextSpace / 2), y: CGFloat(height!) + (3 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(yRanges![1])), fontSize: 12))
         self.drawTextWithNoBox(CGFloat(horTextSpace), y: (0), width: CGFloat(width!), toDraw: "Records vs Time Graph", fontSize: 14)
@@ -121,7 +121,11 @@ public class RecordsGraph: UIMethods {
                 }
             }
         }
-        let range = year - leastYear
+        var range = year - leastYear
+        if(range > FileStructure.acceptableGraphRange) {
+            leastYear = year - FileStructure.acceptableGraphRange
+            range = FileStructure.acceptableGraphRange
+        }
         for _ in 0 ..< Int(range + 1) {
             points.append(0)
         }
@@ -130,7 +134,9 @@ public class RecordsGraph: UIMethods {
             if records![i][0][0].teamName != "Stats" {
                 for x in 0 ..< records![i].count {
                     for z in 0 ..< records![i][x].count {
-                        points[Int(records![i][x][z].year - leastYear)] += 1
+                        if(records![i][x][z].year > leastYear) {
+                            points[Int(records![i][x][z].year - leastYear)] += 1
+                        }
                     }
                 }
             }

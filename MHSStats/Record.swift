@@ -37,7 +37,7 @@ public class Record {
     }
     
     func getQuickName() -> String {
-        var totalParts = personName.characters.split {$0 == "_"}.map { String($0) }
+        let totalParts = personName.characters.split {$0 == "_"}.map { String($0) }
         var quickName = ""
         for var x in totalParts {
             var nameParts = x.characters.split {$0 == " "}.map { String($0) }

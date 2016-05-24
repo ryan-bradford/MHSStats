@@ -21,8 +21,8 @@ public class StatsScreen : MyScrollView {
     var recordsGraph: RecordsGraph?
     var bestTeamScreen: BestTeamScreen?
     var bestYearScreen: BestYearScreen?
-    var bestPlayerScreen: BestPlayerDisplay?
-    var bestTypeScreen: BestTypeScreen?
+    var bestPlayerScreen: BestPlayerScreen?
+    var bestTypeScreen: BestTypeDisplay?
     var stuffShown = false
     var toDrawGraph = true
     
@@ -75,10 +75,10 @@ public class StatsScreen : MyScrollView {
         bestYearScreen = BestYearScreen(x: 3 + boxWidth!, y: boxHeight! + 5, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
         self.addSubview(bestYearScreen!)
         
-        bestPlayerScreen = BestPlayerDisplay(x: 3, y: 2 * boxHeight! + 10, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
+        bestPlayerScreen = BestPlayerScreen(x: 3, y: 2 * boxHeight! + 10, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
         self.addSubview(bestPlayerScreen!)
         
-        bestTypeScreen = BestTypeScreen(x: 3 + boxWidth!, y: 2 * boxHeight! + 10, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
+        bestTypeScreen = BestTypeDisplay(x: 3 + boxWidth!, y: 2 * boxHeight! + 10, width: boxWidth! - 5, height: boxHeight! - 5, records: records!)
         self.addSubview(bestTypeScreen!)
     }
     

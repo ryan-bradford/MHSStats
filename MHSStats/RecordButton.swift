@@ -45,10 +45,11 @@ public class RecordButton : MyButton {
             shiftSideways = 0
             widthToDrawIn = self.frame.width
         }
-        
-        drawCenteredTextInRect(shiftSideways, y: pushDown, width: widthToDrawIn, height: heightOfLast, toDraw: record!.mainData + ": " + record!.dataUnits, fontSize: 15)
+        if(record!.mainData != " ") {
+            drawCenteredTextInRect(shiftSideways, y: pushDown, width: widthToDrawIn, height: heightOfLast, toDraw: record!.mainData + ": " + record!.dataUnits, fontSize: 15)
+        }
         pushDown += heightOfLast
-        pushDown += drawTextWithNoBox(0, y: pushDown, width: self.frame.width, toDraw: String(record!.year), fontSize: 15)
+        pushDown += drawTextWithNoBox(0, y: pushDown, width: self.frame.width, toDraw: String(Int(record!.year)), fontSize: 15)
         return Double(pushDown)
     }
     
