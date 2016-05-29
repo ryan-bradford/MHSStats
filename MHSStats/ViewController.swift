@@ -20,6 +20,10 @@ class ViewController: UIViewController {
 
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
     func initStage1() {
         NSURLCache.sharedURLCache().removeAllCachedResponses()
         let screen = ScreenDisplay(x: 0, y: screenHeight / 2 - FileStructure.topBarHeight / 2, width: screenWidth, height : screenHeight, mDraw: false)
@@ -58,6 +62,10 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func fetch(completion: () -> Void) {
+        
     }
 
 }

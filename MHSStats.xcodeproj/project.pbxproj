@@ -333,6 +333,14 @@
 					9412E1521C8F4ADC00452C4F = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 6324PPSYJF;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9412E1661C8F4ADC00452C4F = {
 						CreatedOnToolsVersion = 7.2.1;

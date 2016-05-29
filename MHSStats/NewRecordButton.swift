@@ -45,7 +45,7 @@ public class NewRecordButton: MyButton {
     }
     
     func drawText() {
-        print(self.record!.getQuickName())
+        //print(self.record!.getQuickName())
         let textHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFontOfSize(25), toGet: self.record!.getQuickName())
         let standardHeight = self.heightWithConstrainedWidth(self.frame.width, font: UIFont.boldSystemFontOfSize(25), toGet: "H")
         if(textHeight > standardHeight) {

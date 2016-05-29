@@ -32,7 +32,7 @@ public class WaysToGoBack: NSObject {
     }
     
     func setMotionManagerThread(motionManager : CMMotionManager) {
-        print("Thread Started")
+        //print("Thread Started")
     }
     
     func initSwipeControl() {

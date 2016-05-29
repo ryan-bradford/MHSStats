@@ -33,7 +33,7 @@ public class TextProcessor {
                 self.screen.newRecords = self.newRecords
             }
             else {
-                print("Faulure: %@", error!.localizedDescription);
+                //print("Faulure: %@", error!.localizedDescription);
                 self.offlineProcessData()
                 self.screen.records = self.records
                 self.screen.newRecords = self.newRecords
@@ -68,7 +68,7 @@ public class TextProcessor {
                 HTML = try NSString(contentsOfURL: path, encoding: NSUTF8StringEncoding) as String
             }
             catch {
-                print("Error")
+                //print("Error")
             }
         }
         var HTMLSubTexts = HTML.characters.split {$0 == "₧"}.map { String($0) }
