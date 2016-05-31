@@ -83,6 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 currentHash = textParts[1]
                 message = textParts[3]
                 if(currentHash != lastHash) {
+                    for var x in application.windows {
+                        let y = x.rootViewController as! ViewController
+                        y.screen?.loadAndProcessRecords()
+                        y.screen!.displayRecords(0, y: 0, width: y.screenWidth, height: y.screenHeight)
+                    }
                     self.sendNotification(message, application: application)
                     self.writeText(currentHash)
                 }

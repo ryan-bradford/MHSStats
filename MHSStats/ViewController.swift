@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var screenWidth = Double(UIScreen.mainScreen().bounds.width) //Final
     var screenHeight = Double(UIScreen.mainScreen().bounds.height) //Final
     var ways : WaysToGoBack?
+    public var screen: ScreenDisplay?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,20 +27,20 @@ class ViewController: UIViewController {
     
     func initStage1() {
         NSURLCache.sharedURLCache().removeAllCachedResponses()
-        let screen = ScreenDisplay(x: 0, y: screenHeight / 2 - FileStructure.topBarHeight / 2, width: screenWidth, height : screenHeight, mDraw: false)
+        screen = ScreenDisplay(x: 0, y: screenHeight / 2 - FileStructure.topBarHeight / 2, width: screenWidth, height : screenHeight, mDraw: false)
         let redScreen = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
         redScreen.backgroundColor = FileStructure.MHSColor
-        self.view.addSubview(screen)
+        self.view.addSubview(screen!)
         self.view.addSubview(redScreen)
-        screen.loadAndProcessRecords()
+        screen!.loadAndProcessRecords()
         UIView.animateWithDuration(1 * FileStructure.introScale, animations: {
             redScreen.frame = CGRectMake(0, CGFloat(self.screenHeight + 10), CGFloat(self.screenWidth), CGFloat(self.screenHeight))
             }, completion: {
                 (value: Bool) in
                 if(false) {
-                    screen.topBar!.mGraphic!.showM(self, screen: screen)
+                    self.screen!.topBar!.mGraphic!.showM(self, screen: self.screen!)
                 } else {
-                    self.initStage2(screen)
+                    self.initStage2(self.screen!)
                 }
         })
     }

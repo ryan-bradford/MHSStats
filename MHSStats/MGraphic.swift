@@ -63,7 +63,6 @@ public class MGraphic : UIView {
     }
     
     override public func drawRect(rect: CGRect) {
-        print("Drawn")
         self.drawM()
     }
     

@@ -121,6 +121,7 @@ public class ScreenDisplay : UIView {
     }
     
     func loadAndProcessRecords() {
+        self.records = nil
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             _ = TextProcessor(screen: self)
