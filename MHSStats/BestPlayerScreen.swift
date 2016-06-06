@@ -44,7 +44,7 @@ public class BestPlayerScreen: UIMethods {
         for var teams in records! {
             for var cat in teams {
                 for var record in cat {
-                    if(record.categoryName != "Championship") {
+                    if(record.categoryName != "Championships" && record.personName != "Relay Team") {
                         if(record.personName.containsString("_")) {
                             let parts = record.personName.characters.split{$0 == "_"}.map(String.init)
                             for var x in parts {

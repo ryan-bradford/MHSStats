@@ -44,7 +44,7 @@ public class BestTypeDisplay: UIMethods {
         for var teams in records! {
             for var cat in teams {
                 for var record in cat {
-                    if(record.categoryName != "Championship") {
+                    if(record.categoryName != "Championships") {
                         allTypes.append(record.categoryName)
                     }
                 }
