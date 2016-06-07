@@ -44,7 +44,7 @@ public class RecordsGraph: UIMethods {
     }
     
     
-      
+    
     func genGraph(width: Double, height: Double) {
         
         var data = genGraphData()
@@ -68,7 +68,6 @@ public class RecordsGraph: UIMethods {
         let leastY = getGraphRange(data)[1]
         let range = biggestY - leastY
         let yScale = height / Double(range)
-        
         let path = UIBezierPath()
         path.moveToPoint(CGPointMake(CGFloat(horTextSpace), (CGFloat(height) - CGFloat(data[0]) * CGFloat(yScale)) + CGFloat(vertTextSpace)))
         for i in 1 ..< data.count - 1 {
@@ -103,7 +102,7 @@ public class RecordsGraph: UIMethods {
         toReturn.append(smallest)
         return toReturn
     }
-
+    
     
     func genGraphData() -> Array<Double> {
         let date = NSDate()
@@ -131,11 +130,13 @@ public class RecordsGraph: UIMethods {
         }
         points.append(leastYear)
         for i in 0 ..< records!.count {
-            if records![i][0][0].categoryName == "Championships" {
-                for x in 0 ..< records![i].count {
-                    for z in 0 ..< records![i][x].count {
-                        if(records![i][x][z].year > leastYear) {
-                            points[Int(records![i][x][z].year - leastYear)] += 1
+            for x in 0 ..< records![i].count {
+                if(records![i][x].count != 0) {
+                    if records![i][x][0].categoryName == "Championships" {
+                        for z in 0 ..< records![i][x].count {
+                            if(records![i][x][z].year > leastYear) {
+                                points[Int(records![i][x][z].year - leastYear)] += 1
+                            }
                         }
                     }
                 }
@@ -151,6 +152,6 @@ public class RecordsGraph: UIMethods {
             self.coverScreen!.frame = CGRectMake(xPosition, yPosition, 0, 0)
         })
     }
-
+    
     
 }
