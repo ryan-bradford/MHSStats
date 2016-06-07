@@ -22,11 +22,13 @@ public class ScreenDisplay : UIView {
     var newRecords: Array<Record>?
     var categoryIDDisplayed: Double?
     var statsScreenDisplayed = false
+    var viewController: ViewController?
     
-    public init(x : Double, y : Double, width : Double, height : Double, mDraw: Bool) {
+    init(x : Double, y : Double, width : Double, height : Double, mDraw: Bool, viewController: ViewController) {
+        self.viewController = viewController
         self.screenWidth = width
         super.init(frame: CGRect(x: x, y: y, width: width, height: height))
-        topBar = TopBar(width: screenWidth!, superScreen: self, mDraw: mDraw)
+        topBar = TopBar(width: screenWidth!, superScreen: self)
         addSubview(topBar!)
     }
     
@@ -167,7 +169,8 @@ public class ScreenDisplay : UIView {
                         }
                 })
                 self.addSubview(self.statsScreen!)
-                
+                self.viewController!.loading!.removeFromSuperview()
+                self.viewController!.loading!.fadeOut(2.0)
             }
         }
     }

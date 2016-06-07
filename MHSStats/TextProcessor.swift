@@ -81,7 +81,7 @@ public class TextProcessor {
     }
     
     func readTeams() {
-        let myURLString = "http://mmiillkkaa.hopto.org/rbradford/TeamDataDev.txt"
+        let myURLString = "http://mmiillkkaa.hopto.org/rbradford/TeamData.txt"
         load(NSURL(string: myURLString)!)
     }
     

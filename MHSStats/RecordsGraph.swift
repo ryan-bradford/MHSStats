@@ -40,7 +40,7 @@ public class RecordsGraph: UIMethods {
         (self.drawTextWithNoBox(CGFloat(width!/2), y: CGFloat(height!) + (5 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(xRanges![0])), fontSize: 12))
         (self.drawTextWithNoBox((-CGFloat(width!/2)) + CGFloat(horTextSpace / 2), y: (CGFloat(vertTextSpace)), width: CGFloat(width!), toDraw: String(Int(yRanges![0])), fontSize: 12))
         (self.drawTextWithNoBox((-CGFloat(width!/2)) + CGFloat(horTextSpace / 2), y: CGFloat(height!) + (3 * CGFloat(vertTextSpace) / 4), width: CGFloat(width!), toDraw: String(Int(yRanges![1])), fontSize: 12))
-        self.drawTextWithNoBox(CGFloat(horTextSpace), y: (0), width: CGFloat(width!), toDraw: "Records vs Time Graph", fontSize: 14)
+        self.drawTextWithNoBox(CGFloat(horTextSpace), y: (0), width: CGFloat(width!), toDraw: "Championships vs Time Graph", fontSize: 14)
     }
     
     
@@ -131,7 +131,7 @@ public class RecordsGraph: UIMethods {
         }
         points.append(leastYear)
         for i in 0 ..< records!.count {
-            if records![i][0][0].teamName != "Stats" {
+            if records![i][0][0].categoryName == "Championships" {
                 for x in 0 ..< records![i].count {
                     for z in 0 ..< records![i][x].count {
                         if(records![i][x][z].year > leastYear) {

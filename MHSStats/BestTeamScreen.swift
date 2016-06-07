@@ -50,7 +50,7 @@ public class BestTeamScreen: UIMethods {
             var sum = 0
             for x in 0 ..< records![i].count {
                 for z in 0 ..< records![i][x].count {
-                    if(records![i][x][z].year == Double(year)) {
+                    if(records![i][x][z].categoryName == "Championships") {
                         sum += 1
                     }
                 }

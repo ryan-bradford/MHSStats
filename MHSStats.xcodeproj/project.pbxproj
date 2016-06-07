@@ -22,6 +22,8 @@
 		9412E1991C90D13400452C4F /* RecordsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E1981C90D13400452C4F /* RecordsScreen.swift */; };
 		9412E19B1C90D47A00452C4F /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E19A1C90D47A00452C4F /* CategoryButton.swift */; };
 		9412E19D1C90D4B000452C4F /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412E19C1C90D4B000452C4F /* RecordButton.swift */; };
+		9427DEDE1D064C41006338B7 /* m.png in Resources */ = {isa = PBXBuildFile; fileRef = 9427DEDD1D064C41006338B7 /* m.png */; };
+		9427DEE01D064F5B006338B7 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9427DEDF1D064F5B006338B7 /* LoadingScreen.swift */; };
 		9438217E1C99CEBE000CCE6F /* MyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9438217D1C99CEBE000CCE6F /* MyButton.swift */; };
 		944931941C92F68A00F3531B /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944931931C92F68A00F3531B /* TopBar.swift */; };
 		9460AC271C9B632D00234455 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9460AC261C9B632D00234455 /* Images.xcassets */; };
@@ -79,6 +81,8 @@
 		9412E1981C90D13400452C4F /* RecordsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsScreen.swift; sourceTree = "<group>"; };
 		9412E19A1C90D47A00452C4F /* CategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		9412E19C1C90D4B000452C4F /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
+		9427DEDD1D064C41006338B7 /* m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = m.png; sourceTree = "<group>"; };
+		9427DEDF1D064F5B006338B7 /* LoadingScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		9438217D1C99CEBE000CCE6F /* MyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyButton.swift; sourceTree = "<group>"; };
 		944931931C92F68A00F3531B /* TopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		9460AC261C9B632D00234455 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 		9412E1551C8F4ADC00452C4F /* MHSStats */ = {
 			isa = PBXGroup;
 			children = (
+				9427DEDD1D064C41006338B7 /* m.png */,
 				94E6BDF51CA9F184003627CD /* Info.plist */,
 				9460AC261C9B632D00234455 /* Images.xcassets */,
 				946437F31C9361D30004CD30 /* Graphics */,
@@ -200,6 +205,7 @@
 				949C13661CB5727500FFCBAD /* MainGroupDisplays */,
 				9412E1931C90D05F00452C4F /* ScreenDisplay.swift */,
 				947E4BAB1C91EBEE0038AC8D /* MyScrollView.swift */,
+				9427DEDF1D064F5B006338B7 /* LoadingScreen.swift */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -378,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9460AC271C9B632D00234455 /* Images.xcassets in Resources */,
+				9427DEDE1D064C41006338B7 /* m.png in Resources */,
 				9412E1611C8F4ADC00452C4F /* LaunchScreen.storyboard in Resources */,
 				9412E15C1C8F4ADC00452C4F /* Main.storyboard in Resources */,
 			);
@@ -412,6 +419,7 @@
 				9412E1591C8F4ADC00452C4F /* ViewController.swift in Sources */,
 				946437F21C9361CC0004CD30 /* MGraphic.swift in Sources */,
 				9412E18E1C8F792A00452C4F /* Record.swift in Sources */,
+				9427DEE01D064F5B006338B7 /* LoadingScreen.swift in Sources */,
 				9498644C1CEE789900B7975A /* RecordsGraph.swift in Sources */,
 				94838B701CEFB1870053985D /* BestTypeDisplay.swift in Sources */,
 				9438217E1C99CEBE000CCE6F /* MyButton.swift in Sources */,
