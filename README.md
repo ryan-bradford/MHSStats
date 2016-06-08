@@ -7,10 +7,9 @@ Every other window (either category windows or record windows) are stored off-sc
 When these windows are called, they are simply slid on screen over the base window. 
 All the windows are loaded onto the ScreenDisplay platform. 
 
-The notifications are built using a background loop and checking a separate "hash" file stored on the server. 
-If the background loop detects the hash has changed, it notifies the user through a notification. 
+The notifications are built using APNS and server infrastructure. The server sends a notification to APNS which communicated with the phone to send a notification. If the application is open, the phone will refresh the UI. 
 
-Some future advancements for the application include remote notifications, 
+Some future advancements for the application include
 outside of MHS school records and stats, 
 School comparison, 
 and club notifications. 
