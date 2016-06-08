@@ -14,15 +14,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //Change to Remote Notifications
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        application.setMinimumBackgroundFetchInterval(
-        UIApplicationBackgroundFetchIntervalMinimum)
-         let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
-         let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
-         application.registerUserNotificationSettings(pushNotificationSettings)
-         application.registerForRemoteNotifications()
-        
+        let notificationSettings = UIUserNotificationSettings(
+            forTypes: [.Badge, .Sound, .Alert], categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
         return true
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        if notificationSettings.types != .None {
+            application.registerForRemoteNotifications()
+        }
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+        var tokenString = ""
+        
+        for i in 0..<deviceToken.length {
+            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        
+        sendPostRequest(tokenString)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Failed to register:", error)
     }
     
     func applicationWillResignActive(application: UIApplication) {
@@ -47,70 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        completionHandler(UIBackgroundFetchResult.NewData)
-        checkHash(application)
-    }
-    
-    func checkHash(application: UIApplication) {
-        var lastHash = ""
-        var currentHash = ""
-        var message = ""
-        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("hash.txt")
-            let filePath = path.URLByAppendingPathComponent("hash").path!
-            let fileManager = NSFileManager.defaultManager()
-            if fileManager.fileExistsAtPath(filePath) {
-                
-            }
-            do {
-                lastHash = try NSString(contentsOfURL: path, encoding: NSUTF8StringEncoding) as String
-            }
-            catch {
-                //print("Offline Error")
-            }
-        }
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
-        let URL = NSURL(string: "http://mmiillkkaa.hopto.org/rbradford/hash.txt")
-        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        let request = NSMutableURLRequest(URL: URL!)
-        request.HTTPMethod = "GET"
-        let task = session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            if (error == nil) {
-                let text = String(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                let textParts = text.characters.split {$0 == "₧"}.map { String($0) }
-                currentHash = textParts[1]
-                message = textParts[3]
-                if(currentHash != lastHash) {
-                    for var x in application.windows {
-                        let y = x.rootViewController as! ViewController
-                        y.screen?.loadAndProcessRecords()
-                        y.screen!.displayRecords(0, y: 0, width: y.screenWidth, height: y.screenHeight)
-                    }
-                    self.sendNotification(message, application: application)
-                    self.writeText(currentHash)
-                }
-            } else {
-                //print("Faulure: %@", error!.localizedDescription);
-            }
-        })
-        task.resume()
-        
-    }
-    
-    func writeText(text: String) {
-        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("hash.txt")
-            do {
-                try text.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
-            }
-            catch {
-                return
-            }
-        }
-    }
-    
     func sendNotification(message: String, application: UIApplication) {
         let notification = UILocalNotification()
         notification.alertBody = message  // text that will be displayed in the notification
@@ -121,6 +73,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.scheduleLocalNotification(notification)
     }
     
+    func sendPostRequest(deviceID: String) {
+        let request = NSMutableURLRequest(URL: NSURL(string: "http://thaumavor.io/rbradford/control/")!)
+        request.HTTPMethod = "POST"
+        let postString = "deviceToken=" + deviceID
+        request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+            guard error == nil && data != nil else
+            {
+                return
+            }
+            
+            if let httpStatus = response as? NSHTTPURLResponse where httpStatus.statusCode != 200 {           // check for http errors
+            }
+            
+            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+        }
+        task.resume()
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        for var x in application.windows {
+            let y = x.rootViewController as! ViewController
+            y.screen?.loadAndProcessRecords()
+            y.screen!.displayRecords(0, y: 0, width: y.screenWidth, height: y.screenHeight)
+        }
+    }
     
 }
 
