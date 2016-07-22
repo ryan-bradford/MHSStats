@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print("Failed to register:", error)
     }
     
     func applicationWillResignActive(application: UIApplication) {
@@ -74,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func sendPostRequest(deviceID: String) {
-        let request = NSMutableURLRequest(URL: NSURL(string: "http://thaumavor.io/rbradford/control/")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "http://rbradford.thaumavor.io/control/")!)
         request.HTTPMethod = "POST"
         let postString = "deviceToken=" + deviceID
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding)
@@ -92,12 +91,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         task.resume()
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         for var x in application.windows {
             let y = x.rootViewController as! ViewController
             y.screen?.loadAndProcessRecords()
             y.screen!.displayRecords(0, y: 0, width: y.screenWidth, height: y.screenHeight)
         }
+        completionHandler(UIBackgroundFetchResult.NewData)
     }
     
 }
